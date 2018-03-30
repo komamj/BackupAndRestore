@@ -13,23 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.koma.backuprestore;
+package com.koma.backuprestore.modellibrary;
 
-import com.koma.backuprestore.commonlibrary.base.BaseApplication;
+import javax.inject.Singleton;
 
-import backup.koma.com.loglibrary.KomaLog;
+import dagger.Component;
 
 /**
  * Created by koma on 2/28/18.
  */
-
-public class BackupRestoreApplication extends BaseApplication {
-    private static final String TAG = BackupRestoreApplication.class.getSimpleName();
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
-        KomaLog.i(TAG, "onCreate");
-    }
+@Singleton
+@Component(modules = {BackupRestoreRepositoryModule.class, ApplicationModule.class})
+public interface BackupRestoreRepositoryComponent {
+    BackupRestoreRepository getRepository();
 }

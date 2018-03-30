@@ -13,23 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.koma.backuprestore;
+package com.koma.backuprestore.restorelibrary;
 
-import com.koma.backuprestore.commonlibrary.base.BaseApplication;
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
 
-import backup.koma.com.loglibrary.KomaLog;
+import javax.inject.Inject;
+
+import io.reactivex.annotations.Nullable;
 
 /**
- * Created by koma on 2/28/18.
+ * Created by koma on 3/29/18.
  */
 
-public class BackupRestoreApplication extends BaseApplication {
-    private static final String TAG = BackupRestoreApplication.class.getSimpleName();
+public class RestoreService extends Service implements RestoreContract.View {
+
+    @Inject
+    RestorePresenter mPresenter;
 
     @Override
     public void onCreate() {
         super.onCreate();
+    }
 
-        KomaLog.i(TAG, "onCreate");
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    @Override
+    public void setPresenter(RestoreContract.Presenter presenter) {
+
     }
 }

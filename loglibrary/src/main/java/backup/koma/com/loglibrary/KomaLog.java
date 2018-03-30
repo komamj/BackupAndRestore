@@ -32,6 +32,12 @@ public class KomaLog {
         }
     }
 
+    public static void v(String tag, String msg) {
+        if (IS_DEBUG) {
+            Log.v(TAG, buildString(tag, msg));
+        }
+    }
+
     public static void i(String tag, String msg) {
         if (IS_DEBUG) {
             Log.i(TAG, buildString(tag, msg));

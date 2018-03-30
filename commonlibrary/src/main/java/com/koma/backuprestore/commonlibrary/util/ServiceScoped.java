@@ -13,17 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.koma.backuprestore.modellibrary;
+package com.koma.backuprestore.commonlibrary.util;
 
-import javax.inject.Singleton;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
-import dagger.Component;
+import javax.inject.Scope;
 
 /**
- * Created by koma on 2/28/18.
+ * Created by koma on 3/29/18.
  */
-@Singleton
-@Component(modules = {BackupRestoreRepositoryModule.class, ApplicationModule.class})
-public interface BackupRestoreComponent {
-    BackupRestoreRepository getRepository();
+@Documented
+@Scope
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ServiceScoped {
 }

@@ -50,7 +50,6 @@ android {
         abortOnError false
         lintConfig file("lint.xml")
     }
-
 }
 
 dependencies {
@@ -58,32 +57,11 @@ dependencies {
 
     implementation "com.android.support:appcompat-v7:$rootProject.ext.support_version"
 
-    //butterknife
-    implementation "com.jakewharton:butterknife:$rootProject.ext.butterknife_version"
-    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknife_version"
-
-    //glide
-    implementation "com.github.bumptech.glide:glide:$rootProject.ext.glide_version"
-    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.ext.glide_version"
-    implementation("com.github.bumptech.glide:recyclerview-integration:$rootProject.ext.glide_version") {
-        // Excludes the support library because it's already included by Glide.
-        transitive = false
-    }
-
-    //dagger2
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxjava_version"
     implementation "com.google.dagger:dagger:$rootProject.ext.dagger_version"
     annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.ext.dagger_version"
 
-    //rxjava
-    implementation "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxjava_version"
-
-    //rxpermission
-    implementation "com.tbruyelle.rxpermissions2:rxpermissions:$rootProject.ext.rxpermission_version"
-
-    //leakcanary
-    debugCompile "com.squareup.leakcanary:leakcanary-android:$rootProject.ext.leakcanary_version"
-    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.ext.leakcanary_version"
-
+    implementation project(':commonlibrary')
     implementation project(':modellibrary')
     implementation project(':loglibrary')
 

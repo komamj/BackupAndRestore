@@ -13,19 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.koma.backuprestore.util;
+package com.koma.backuprestore.commonlibrary.util;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
-import javax.inject.Scope;
+import android.os.Build;
 
 /**
- * Created by koma on 3/1/18.
+ * Created by koma on 3/25/18.
  */
-@Documented
-@Scope
-@Retention(RetentionPolicy.RUNTIME)
-public @interface FragmentScoped {
+
+public class VersionUtils {
+    public static boolean isOreo() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
+    }
+
+    public static boolean isMarshmallow() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+    }
+
+    public static boolean isLollipop() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+    }
 }

@@ -13,23 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.koma.backuprestore.restore;
+package com.koma.backuprestore.restorelibrary.apk;
 
 import android.accessibilityservice.AccessibilityService;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import java.util.HashMap;
-import java.util.Map;
+import backup.koma.com.loglibrary.KomaLog;
 
 /**
  * Created by koma on 3/20/18.
  */
 
 public class InstallAccessibilityService extends AccessibilityService {
+    private static final String TAG = InstallAccessibilityService.class.getSimpleName();
+
     private SparseBooleanArray mHandledArray = new SparseBooleanArray();
 
     @Override
@@ -54,7 +54,9 @@ public class InstallAccessibilityService extends AccessibilityService {
             int childCount = nodeInfo.getChildCount();
             if ("android.widget.Button".equals(nodeInfo.getClassName())) {
                 String nodeContent = nodeInfo.getText().toString();
-                Log.d("TAG", "content is " + nodeContent);
+
+                KomaLog.d(TAG, "content is " + nodeContent);
+
                 if (!TextUtils.isEmpty(nodeContent)
                         && ("安装".equals(nodeContent)
                         || "install".equals(nodeContent.toLowerCase())

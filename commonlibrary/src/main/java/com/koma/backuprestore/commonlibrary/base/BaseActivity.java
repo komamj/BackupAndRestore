@@ -18,45 +18,45 @@ package com.koma.backuprestore.commonlibrary.base;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
+import backup.koma.com.loglibrary.KomaLog;
+import butterknife.ButterKnife;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by koma on 3/20/18.
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
+    private static final String TAG = BaseActivity.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(getLayoutId());
+
+        ButterKnife.bind(this);
+
         RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.request(getPermissions())
-                .subscribe(new Observer<Boolean>() {
+        rxPermissions.requestEach(getPermissions())
+                .subscribe(new Consumer<Permission>() {
                     @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(Boolean aBoolean) {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
+                    public void accept(Permission permission) throws Exception {
+                        if (permission.granted) {
+                            // 用户已经同意该权限
+                            KomaLog.i(TAG, "用户已经同意该权限");
+                        } else if (permission.shouldShowRequestPermissionRationale) {
+                            // 用户拒绝了该权限，没有选中不再询问
+                            KomaLog.i(TAG, "用户拒绝了该权限，没有选中不再询问");
+                        } else {
+                            // 用户拒绝了该权限，并且选中不再询问
+                            KomaLog.i(TAG, "用户拒绝了该权限，并且选中不再询问");
+                        }
                     }
                 });
-
-        setContentView(getLayoutId());
     }
 
     protected abstract int getLayoutId();
