@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Restore Library</string>
+    <string name="app_name" translatable="false">Restore Library</string>
+
+    <string name="accessibility_service_description">"Application automatic installation services."</string>
 </resources>
