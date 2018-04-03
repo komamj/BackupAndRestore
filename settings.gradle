@@ -1,1 +1,1 @@
-include ':app', ':commonlibrary', ':modellibrary', ':loglibrary', ':restorelibrary', ':backuplibrary'
+include ':app', ':commonlibrary', ':modellibrary', ':loglibrary'

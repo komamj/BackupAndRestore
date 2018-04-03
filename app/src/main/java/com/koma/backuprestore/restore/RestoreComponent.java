@@ -13,19 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.koma.backuprestore.restorelibrary;
+package com.koma.backuprestore.restore;
 
-import com.koma.backuprestore.commonlibrary.base.BasePresenter;
-import com.koma.backuprestore.commonlibrary.base.BaseView;
+import com.koma.backuprestore.commonlibrary.util.ServiceScoped;
+import com.koma.backuprestore.modellibrary.BackupRestoreRepositoryComponent;
 
-/**
- * Created by koma on 3/29/18.
- */
+import dagger.Component;
 
-public interface RestoreContract {
-    interface View extends BaseView<Presenter> {
-    }
-
-    interface Presenter extends BasePresenter {
-    }
+@ServiceScoped
+@Component(dependencies = BackupRestoreRepositoryComponent.class, modules = RestorePresenterModule.class)
+public interface RestoreComponent {
+    void inject(RestoreService service);
 }

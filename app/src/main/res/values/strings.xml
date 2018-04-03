@@ -5,4 +5,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <!--Restore-->
+    <!--AccessibilityService-->
+    <string name="accessibility_service_description" translatable="false">"Application automatic installation services."</string>
 </resources>

@@ -13,18 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.koma.backuprestore.restorelibrary;
+package com.koma.backuprestore.modellibrary.source.backup;
 
-import com.koma.backuprestore.commonlibrary.util.ServiceScoped;
-import com.koma.backuprestore.modellibrary.BackupRestoreRepositoryComponent;
-
-import dagger.Component;
+import com.koma.backuprestore.modellibrary.source.IBackupRestoreDataSource;
 
 /**
- * Created by koma on 3/29/18.
+ * Created by koma on 3/20/18.
  */
-@ServiceScoped
-@Component(dependencies = BackupRestoreRepositoryComponent.class, modules = RestorePresenterModule.class)
-public interface RestoreComponent {
-    void inject(RestoreService restoreService);
+
+public interface IBackupDataSource extends IBackupRestoreDataSource {
 }

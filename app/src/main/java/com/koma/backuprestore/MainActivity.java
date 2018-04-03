@@ -68,11 +68,18 @@ public class MainActivity extends BaseActivity
 
     @Override
     protected String[] getPermissions() {
-        return new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+        return new String[]{
+                Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_CALENDAR,
                 Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_SMS,
                 Manifest.permission.READ_CALL_LOG, Manifest.permission.WRITE_CALL_LOG,
                 Manifest.permission.READ_PHONE_STATE};
+    }
+
+    @Override
+    protected void onPermissonGranted() {
+
     }
 
     @Override

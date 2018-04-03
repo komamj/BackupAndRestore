@@ -15,7 +15,13 @@
  */
 package com.koma.backuprestore;
 
-import com.koma.backuprestore.commonlibrary.base.BaseApplication;
+import android.app.Application;
+
+import com.bumptech.glide.Glide;
+import com.koma.backuprestore.modellibrary.ApplicationModule;
+import com.koma.backuprestore.modellibrary.BackupRestoreRepositoryComponent;
+import com.koma.backuprestore.modellibrary.BackupRestoreRepositoryModule;
+import com.koma.backuprestore.modellibrary.DaggerBackupRestoreRepositoryComponent;
 
 import backup.koma.com.loglibrary.KomaLog;
 
@@ -23,13 +29,45 @@ import backup.koma.com.loglibrary.KomaLog;
  * Created by koma on 2/28/18.
  */
 
-public class BackupRestoreApplication extends BaseApplication {
+public class BackupRestoreApplication extends Application {
     private static final String TAG = BackupRestoreApplication.class.getSimpleName();
+
+    private BackupRestoreRepositoryComponent mRepositoryComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        KomaLog.i(TAG, "onCreate");
+        mRepositoryComponent = DaggerBackupRestoreRepositoryComponent.builder()
+                .applicationModule(new ApplicationModule(this))
+                .backupRestoreRepositoryModule(new BackupRestoreRepositoryModule())
+                .build();
+    }
+
+    public BackupRestoreRepositoryComponent getRepositoryComponent() {
+        return mRepositoryComponent;
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+
+        KomaLog.e(TAG, "onLowMemory");
+
+        //clear cache
+        Glide.get(this).clearMemory();
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+
+        KomaLog.i(TAG, "onTrimMemory level : " + level);
+
+        if (level == TRIM_MEMORY_UI_HIDDEN) {
+            Glide.get(this).clearMemory();
+        }
+
+        Glide.get(this).trimMemory(level);
     }
 }

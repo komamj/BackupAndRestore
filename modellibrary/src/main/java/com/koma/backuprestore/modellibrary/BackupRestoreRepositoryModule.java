@@ -19,10 +19,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.koma.backuprestore.modellibrary.source.backup.IBackupDataSource;
 import com.koma.backuprestore.modellibrary.source.backup.BackupDataSource;
-import com.koma.backuprestore.modellibrary.source.backup.BackupDataSourceImp;
+import com.koma.backuprestore.modellibrary.source.restore.IRestoreDataSource;
 import com.koma.backuprestore.modellibrary.source.restore.RestoreDataSource;
-import com.koma.backuprestore.modellibrary.source.restore.RestoreDataSourceImp;
 
 import javax.inject.Singleton;
 
@@ -43,13 +43,13 @@ public class BackupRestoreRepositoryModule {
 
     @Singleton
     @Provides
-    BackupDataSource provideBackupDataSource(Context context) {
-        return new BackupDataSourceImp(context);
+    IBackupDataSource provideBackupDataSource(Context context) {
+        return new BackupDataSource(context);
     }
 
     @Singleton
     @Provides
-    RestoreDataSource provideRestoreDataSource(Context context) {
-        return new RestoreDataSourceImp(context);
+    IRestoreDataSource provideRestoreDataSource(Context context) {
+        return new RestoreDataSource(context);
     }
 }

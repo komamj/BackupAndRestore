@@ -83,7 +83,6 @@ dependencies {
     debugCompile "com.squareup.leakcanary:leakcanary-android:$rootProject.ext.leakcanary_version"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.ext.leakcanary_version"
 
-    implementation project(':modellibrary')
     implementation project(':loglibrary')
 
     testImplementation "junit:junit:$rootProject.ext.junit_version"

@@ -13,24 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.koma.backuprestore.modellibrary.source;
+package com.koma.backuprestore.restore;
 
-import com.koma.backuprestore.modellibrary.entities.Apk;
-import com.koma.backuprestore.modellibrary.entities.Image;
-import com.koma.backuprestore.modellibrary.entities.Video;
+import dagger.Module;
+import dagger.Provides;
 
-import java.util.List;
+@Module
+public class RestorePresenterModule {
+    private final RestoreContract.View mView;
 
-import io.reactivex.Flowable;
+    public RestorePresenterModule(RestoreContract.View view) {
+        mView = view;
+    }
 
-/**
- * Created by koma on 2/28/18.
- */
-
-public interface BackupRestoreDataSource {
-    Flowable<List<Video>> getVideos();
-
-    Flowable<List<Apk>> getApps();
-
-    Flowable<List<Image>> getImages();
+    @Provides
+    RestoreContract.View provideRestoreContractView() {
+        return this.mView;
+    }
 }

@@ -18,9 +18,9 @@ package com.koma.backuprestore.modellibrary;
 import com.koma.backuprestore.modellibrary.entities.Apk;
 import com.koma.backuprestore.modellibrary.entities.Image;
 import com.koma.backuprestore.modellibrary.entities.Video;
-import com.koma.backuprestore.modellibrary.source.BackupRestoreDataSource;
-import com.koma.backuprestore.modellibrary.source.backup.BackupDataSource;
-import com.koma.backuprestore.modellibrary.source.restore.RestoreDataSource;
+import com.koma.backuprestore.modellibrary.source.IBackupRestoreDataSource;
+import com.koma.backuprestore.modellibrary.source.backup.IBackupDataSource;
+import com.koma.backuprestore.modellibrary.source.restore.IRestoreDataSource;
 
 import java.util.List;
 
@@ -34,13 +34,13 @@ import io.reactivex.Flowable;
  */
 
 @Singleton
-public class BackupRestoreRepository implements BackupRestoreDataSource {
-    private final BackupDataSource mBackupDataSource;
+public class BackupRestoreRepository implements IBackupRestoreDataSource {
+    private final IBackupDataSource mBackupDataSource;
 
-    private final RestoreDataSource mRestoreDataSource;
+    private final IRestoreDataSource mRestoreDataSource;
 
     @Inject
-    public BackupRestoreRepository(BackupDataSource backupDataSource, RestoreDataSource restoreDataSource) {
+    public BackupRestoreRepository(IBackupDataSource backupDataSource, IRestoreDataSource restoreDataSource) {
         mBackupDataSource = backupDataSource;
 
         mRestoreDataSource = restoreDataSource;

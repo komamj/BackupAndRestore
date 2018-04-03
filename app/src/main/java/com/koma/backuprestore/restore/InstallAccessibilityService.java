@@ -13,19 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.koma.backuprestore.restorelibrary.apk;
+package com.koma.backuprestore.restore;
 
 import android.accessibilityservice.AccessibilityService;
-import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-
-import backup.koma.com.loglibrary.KomaLog;
-
-/**
- * Created by koma on 3/20/18.
- */
 
 public class InstallAccessibilityService extends AccessibilityService {
     private static final String TAG = InstallAccessibilityService.class.getSimpleName();
@@ -39,7 +32,7 @@ public class InstallAccessibilityService extends AccessibilityService {
             int eventType = event.getEventType();
             if (eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED ||
                     eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-                if(mHandledArray.get(event.getWindowId())){
+                if (mHandledArray.get(event.getWindowId())) {
                     boolean handled = iterateNodesAndHandle(nodeInfo);
                     if (handled) {
                         mHandledArray.put(event.getWindowId(), true);
@@ -51,11 +44,11 @@ public class InstallAccessibilityService extends AccessibilityService {
 
     private boolean iterateNodesAndHandle(AccessibilityNodeInfo nodeInfo) {
         if (nodeInfo != null) {
-            int childCount = nodeInfo.getChildCount();
+            /*int childCount = nodeInfo.getChildCount();
             if ("android.widget.Button".equals(nodeInfo.getClassName())) {
                 String nodeContent = nodeInfo.getText().toString();
 
-                KomaLog.d(TAG, "content is " + nodeContent);
+                LogUtils.d(TAG, "content is " + nodeContent);
 
                 if (!TextUtils.isEmpty(nodeContent)
                         && ("安装".equals(nodeContent)
@@ -75,7 +68,7 @@ public class InstallAccessibilityService extends AccessibilityService {
                 if (iterateNodesAndHandle(childNodeInfo)) {
                     return true;
                 }
-            }
+            }*/
         }
         return false;
     }

@@ -13,21 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.koma.backuprestore.restorelibrary;
+package com.koma.backuprestore.restore;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.support.annotation.Nullable;
+
+import com.koma.backuprestore.BackupRestoreApplication;
 
 import javax.inject.Inject;
 
-import io.reactivex.annotations.Nullable;
-
-/**
- * Created by koma on 3/29/18.
- */
-
 public class RestoreService extends Service implements RestoreContract.View {
+    private static final String TAG = RestoreService.class.getSimpleName();
 
     @Inject
     RestorePresenter mPresenter;
@@ -35,6 +33,13 @@ public class RestoreService extends Service implements RestoreContract.View {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        DaggerRestoreComponent.builder()
+                .backupRestoreRepositoryComponent(
+                        ((BackupRestoreApplication) getApplication()).getRepositoryComponent())
+                .restorePresenterModule(new RestorePresenterModule(this))
+                .build()
+                .inject(this);
     }
 
     @Nullable

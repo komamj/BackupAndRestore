@@ -13,25 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.koma.backuprestore.restorelibrary;
+package com.koma.backuprestore.modellibrary.source.restore;
 
-import dagger.Module;
-import dagger.Provides;
+import com.koma.backuprestore.modellibrary.source.IBackupRestoreDataSource;
 
 /**
- * Created by koma on 3/29/18.
+ * Created by koma on 3/20/18.
  */
 
-@Module
-public class RestorePresenterModule {
-    private final RestoreContract.View mView;
-
-    public RestorePresenterModule(RestoreContract.View view) {
-        mView = view;
-    }
-
-    @Provides
-    RestoreContract.View provideRestoreContractView() {
-        return this.mView;
-    }
+public interface IRestoreDataSource extends IBackupRestoreDataSource {
 }

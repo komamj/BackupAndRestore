@@ -21,7 +21,6 @@ import android.support.v7.app.AppCompatActivity;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
-import backup.koma.com.loglibrary.KomaLog;
 import butterknife.ButterKnife;
 import io.reactivex.functions.Consumer;
 
@@ -47,13 +46,11 @@ public abstract class BaseActivity extends AppCompatActivity {
                     public void accept(Permission permission) throws Exception {
                         if (permission.granted) {
                             // 用户已经同意该权限
-                            KomaLog.i(TAG, "用户已经同意该权限");
+                            onPermissonGranted();
                         } else if (permission.shouldShowRequestPermissionRationale) {
                             // 用户拒绝了该权限，没有选中不再询问
-                            KomaLog.i(TAG, "用户拒绝了该权限，没有选中不再询问");
                         } else {
                             // 用户拒绝了该权限，并且选中不再询问
-                            KomaLog.i(TAG, "用户拒绝了该权限，并且选中不再询问");
                         }
                     }
                 });
@@ -62,4 +59,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract int getLayoutId();
 
     protected abstract String[] getPermissions();
+
+    protected abstract void onPermissonGranted();
 }

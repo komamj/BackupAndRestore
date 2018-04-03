@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.koma.backuprestore.restorelibrary;
+package com.koma.backuprestore.restore;
 
 import com.koma.backuprestore.modellibrary.BackupRestoreRepository;
 
@@ -21,9 +21,6 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-/**
- * Created by koma on 3/29/18.
- */
 
 public class RestorePresenter implements RestoreContract.Presenter {
     private static final String TAG = RestorePresenter.class.getSimpleName();
@@ -35,12 +32,17 @@ public class RestorePresenter implements RestoreContract.Presenter {
     private final CompositeDisposable mDisposables;
 
     @Inject
-    public RestorePresenter(RestoreContract.View view, BackupRestoreRepository restoreRepository) {
+    public RestorePresenter(RestoreContract.View view, BackupRestoreRepository repository) {
         mView = view;
 
-        mRepository = restoreRepository;
+        mRepository = repository;
 
         mDisposables = new CompositeDisposable();
+    }
+
+    @Inject
+    void setupListeners() {
+        mView.setPresenter(this);
     }
 
     @Override

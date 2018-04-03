@@ -15,11 +15,84 @@
  */
 package com.koma.backuprestore.modellibrary.source.backup;
 
-import com.koma.backuprestore.modellibrary.source.BackupRestoreDataSource;
+import android.content.Context;
+import android.database.Cursor;
+import android.provider.MediaStore;
+
+import com.koma.backuprestore.modellibrary.entities.Apk;
+import com.koma.backuprestore.modellibrary.entities.Image;
+import com.koma.backuprestore.modellibrary.entities.Video;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
 
 /**
- * Created by koma on 3/20/18.
+ * Created by koma on 2/28/18.
  */
 
-public interface BackupDataSource extends BackupRestoreDataSource {
+@Singleton
+public class BackupDataSource implements IBackupDataSource {
+    private static final String TAG = IBackupDataSource.class.getSimpleName();
+    private static final String[] PROJECTION_VIDEO = {MediaStore.Video.Media._ID,
+            MediaStore.Video.Media.DISPLAY_NAME};
+    private static final String[] PROJECTION_IMAGE = {MediaStore.Images.Media.BUCKET_ID,
+            MediaStore.Images.Media.DISPLAY_NAME};
+
+    private final Context mContext;
+
+    @Inject
+    public BackupDataSource(Context context) {
+        mContext = context;
+    }
+
+    @Override
+    public Flowable<List<Video>> getVideos() {
+        return Flowable.create(new FlowableOnSubscribe<List<Video>>() {
+            @Override
+            public void subscribe(FlowableEmitter<List<Video>> emitter) throws Exception {
+                List<Video> videos = new ArrayList<>();
+                Cursor cursor = null;
+                try {
+                    cursor = mContext.getContentResolver().query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                            PROJECTION_VIDEO, null, null, null);
+                    if (cursor != null && cursor.getCount() > 0) {
+                        cursor.moveToFirst();
+                        do {
+                            Video video = new Video();
+                            video.id = cursor.getInt(0);
+                            video.displayName = cursor.getString(1);
+                            videos.add(video);
+                        } while (cursor.moveToNext());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    if (cursor != null) {
+                        cursor.close();
+                    }
+                }
+
+                emitter.onNext(videos);
+                emitter.onComplete();
+            }
+        }, BackpressureStrategy.LATEST);
+    }
+
+    @Override
+    public Flowable<List<Apk>> getApps() {
+        return null;
+    }
+
+    @Override
+    public Flowable<List<Image>> getImages() {
+        return null;
+    }
 }
