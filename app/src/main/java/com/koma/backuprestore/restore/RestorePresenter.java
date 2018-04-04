@@ -21,7 +21,6 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-
 public class RestorePresenter implements RestoreContract.Presenter {
     private static final String TAG = RestorePresenter.class.getSimpleName();
 
@@ -53,5 +52,35 @@ public class RestorePresenter implements RestoreContract.Presenter {
     @Override
     public void unSubscribe() {
         mDisposables.clear();
+    }
+
+    @Override
+    public void restoreContact() {
+
+    }
+
+    @Override
+    public void restoreCallLog() {
+
+    }
+
+    @Override
+    public void restoreSms() {
+
+    }
+
+    @Override
+    public void restoreMms() {
+
+    }
+
+    @Override
+    public void restoreCalendar() {
+
+    }
+
+    @Override
+    public void restoreMediaFile() {
+
     }
 }

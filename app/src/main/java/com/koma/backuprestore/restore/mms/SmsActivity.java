@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.koma.backuprestore.modellibrary.entities;
+package com.koma.backuprestore.restore.mms;
+
+import android.support.v7.app.AppCompatActivity;
 
 /**
- * Created by koma on 2/28/18.
+ * Created by koma on 4/4/18.
  */
 
-public class Apk {
+public class SmsActivity extends AppCompatActivity {
 }

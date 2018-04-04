@@ -41,10 +41,16 @@ import io.reactivex.FlowableOnSubscribe;
 @Singleton
 public class BackupDataSource implements IBackupDataSource {
     private static final String TAG = IBackupDataSource.class.getSimpleName();
+
+    private static final String[] MUSIC_PROJECTION = {
+            MediaStore.Audio.Media._ID, MediaStore.Audio.Media.DISPLAY_NAME, MediaStore.Audio.Media.DATA
+    };
+
     private static final String[] PROJECTION_VIDEO = {MediaStore.Video.Media._ID,
-            MediaStore.Video.Media.DISPLAY_NAME};
+            MediaStore.Video.Media.DISPLAY_NAME, MediaStore.Video.Media.DATA};
+
     private static final String[] PROJECTION_IMAGE = {MediaStore.Images.Media.BUCKET_ID,
-            MediaStore.Images.Media.DISPLAY_NAME};
+            MediaStore.Images.Media.DISPLAY_NAME, MediaStore.Images.Media.DATA};
 
     private final Context mContext;
 
@@ -69,6 +75,7 @@ public class BackupDataSource implements IBackupDataSource {
                             Video video = new Video();
                             video.id = cursor.getInt(0);
                             video.displayName = cursor.getString(1);
+                            video.path = cursor.getString(2);
                             videos.add(video);
                         } while (cursor.moveToNext());
                     }

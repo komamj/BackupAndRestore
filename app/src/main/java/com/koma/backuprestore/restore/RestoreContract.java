@@ -23,5 +23,16 @@ public interface RestoreContract {
     }
 
     interface Presenter extends BasePresenter {
+        void restoreContact();
+
+        void restoreCallLog();
+
+        void restoreSms();
+
+        void restoreMms();
+
+        void restoreCalendar();
+
+        void restoreMediaFile();
     }
 }

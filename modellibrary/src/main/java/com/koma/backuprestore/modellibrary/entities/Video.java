@@ -17,24 +17,30 @@ package com.koma.backuprestore.modellibrary.entities;
 
 import android.text.TextUtils;
 
+import java.util.Arrays;
+
 /**
  * Created by koma on 2/28/18.
  */
 
 public class Video {
-    public int id;
+    public long id;
     public String displayName;
+    public String path;
 
     public Video() {
     }
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("video has id ");
-        stringBuilder.append(id);
-        stringBuilder.append(",displayName ");
-        stringBuilder.append(displayName);
-        return stringBuilder.toString();
+        StringBuilder builder = new StringBuilder("video has id ");
+        builder.append(id);
+        builder.append(",displayName ");
+        builder.append(displayName);
+        builder.append(",path ");
+        builder.append(path);
+
+        return builder.toString();
     }
 
     @Override
@@ -49,6 +55,12 @@ public class Video {
 
         Video video = (Video) o;
 
-        return this.id == video.id && TextUtils.equals(this.displayName, video.displayName);
+        return this.id == video.id && TextUtils.equals(this.displayName, video.displayName)
+                && TextUtils.equals(this.path, video.path);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(new Object[]{id, displayName, path});
     }
 }

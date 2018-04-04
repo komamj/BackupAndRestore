@@ -13,11 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.koma.backuprestore.modellibrary.entities;
+package com.koma.backuprestore.restore.mms;
+
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
 
 /**
- * Created by koma on 2/28/18.
+ * Created by koma on 4/4/18.
  */
 
-public class Apk {
+public class SmsService extends Service {
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
 }
