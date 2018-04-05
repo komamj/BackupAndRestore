@@ -34,7 +34,7 @@ import io.reactivex.Flowable;
  */
 
 @Singleton
-public class BackupRestoreRepository implements IBackupRestoreDataSource {
+public class BackupRestoreRepository implements IBackupRestoreDataSource, IBackupDataSource, IRestoreDataSource {
     private final IBackupDataSource mBackupDataSource;
 
     private final IRestoreDataSource mRestoreDataSource;
@@ -52,8 +52,8 @@ public class BackupRestoreRepository implements IBackupRestoreDataSource {
     }
 
     @Override
-    public Flowable<List<Apk>> getApps() {
-        return mBackupDataSource.getApps();
+    public Flowable<List<Apk>> getApks() {
+        return mBackupDataSource.getApks();
     }
 
     @Override

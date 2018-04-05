@@ -13,25 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.koma.backuprestore.modellibrary.source.backup;
+package com.koma.backuprestore.commonlibrary.util;
 
-import com.koma.backuprestore.modellibrary.entities.Apk;
-import com.koma.backuprestore.modellibrary.entities.Image;
-import com.koma.backuprestore.modellibrary.entities.Video;
-import com.koma.backuprestore.modellibrary.source.IBackupRestoreDataSource;
-
-import java.util.List;
-
-import io.reactivex.Flowable;
-
-/**
- * Created by koma on 3/20/18.
- */
-
-public interface IBackupDataSource extends IBackupRestoreDataSource {
-    Flowable<List<Video>> getVideos();
-
-    Flowable<List<Apk>> getApks();
-
-    Flowable<List<Image>> getImages();
+public class ActivityUtils {
 }

@@ -17,16 +17,8 @@ package com.koma.backuprestore.modellibrary.source.restore;
 
 import android.content.Context;
 
-import com.koma.backuprestore.modellibrary.entities.Apk;
-import com.koma.backuprestore.modellibrary.entities.Image;
-import com.koma.backuprestore.modellibrary.entities.Video;
-
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import io.reactivex.Flowable;
 
 /**
  * Created by koma on 3/20/18.
@@ -39,20 +31,5 @@ public class RestoreDataSource implements IRestoreDataSource {
     @Inject
     public RestoreDataSource(Context context) {
         mContext = context;
-    }
-
-    @Override
-    public Flowable<List<Video>> getVideos() {
-        return null;
-    }
-
-    @Override
-    public Flowable<List<Apk>> getApps() {
-        return null;
-    }
-
-    @Override
-    public Flowable<List<Image>> getImages() {
-        return null;
     }
 }

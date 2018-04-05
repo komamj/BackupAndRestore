@@ -16,7 +16,10 @@
 package com.koma.backuprestore.modellibrary.source.backup;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.provider.MediaStore;
 
 import com.koma.backuprestore.modellibrary.entities.Apk;
@@ -29,6 +32,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import backup.koma.com.loglibrary.KomaLog;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
@@ -40,7 +44,7 @@ import io.reactivex.FlowableOnSubscribe;
 
 @Singleton
 public class BackupDataSource implements IBackupDataSource {
-    private static final String TAG = IBackupDataSource.class.getSimpleName();
+    private static final String TAG = BackupDataSource.class.getSimpleName();
 
     private static final String[] MUSIC_PROJECTION = {
             MediaStore.Audio.Media._ID, MediaStore.Audio.Media.DISPLAY_NAME, MediaStore.Audio.Media.DATA
@@ -94,12 +98,37 @@ public class BackupDataSource implements IBackupDataSource {
     }
 
     @Override
-    public Flowable<List<Apk>> getApps() {
+    public Flowable<List<Image>> getImages() {
         return null;
     }
 
     @Override
-    public Flowable<List<Image>> getImages() {
-        return null;
+    public Flowable<List<Apk>> getApks() {
+        return Flowable.create(new FlowableOnSubscribe<List<Apk>>() {
+            @Override
+            public void subscribe(FlowableEmitter<List<Apk>> emitter) throws Exception {
+                List<ApplicationInfo> applicationInfos = mContext.getPackageManager()
+                        .getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
+
+                List<Apk> apks = new ArrayList<>();
+
+                for (ApplicationInfo applicationInfo : applicationInfos) {
+                    if ((ApplicationInfo.FLAG_SYSTEM & applicationInfo.flags) != 0) {
+                        continue;
+                    }
+
+                    if(applicationInfo.loadIcon(mContext.getPackageManager()) ==null){
+                        continue;
+                    }
+
+                    Apk apk = new Apk();
+                    apk.packageName = applicationInfo.packageName;
+                    apks.add(apk);
+                }
+
+                emitter.onNext(apks);
+                emitter.onComplete();
+            }
+        }, BackpressureStrategy.LATEST);
     }
 }

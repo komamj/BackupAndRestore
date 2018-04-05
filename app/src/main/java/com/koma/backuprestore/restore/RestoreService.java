@@ -18,6 +18,8 @@ package com.koma.backuprestore.restore;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.provider.Settings;
+import android.support.annotation.MainThread;
 import android.support.annotation.Nullable;
 
 import com.koma.backuprestore.BackupRestoreApplication;
@@ -46,6 +48,12 @@ public class RestoreService extends Service implements RestoreContract.View {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    @MainThread
+    private void enableAccessbilityService() {
+        Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+        startActivity(intent);
     }
 
     @Override

@@ -20,4 +20,5 @@ package com.koma.backuprestore.modellibrary.entities;
  */
 
 public class Apk {
+    public String packageName;
 }

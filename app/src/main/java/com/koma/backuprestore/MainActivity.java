@@ -16,9 +16,7 @@
 package com.koma.backuprestore;
 
 import android.Manifest;
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Telephony;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -81,7 +79,6 @@ public class MainActivity extends BaseActivity
 
     @Override
     protected void onPermissonGranted() {
-
     }
 
     @Override
