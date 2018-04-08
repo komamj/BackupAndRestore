@@ -13,39 +13,53 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.koma.backuprestore.backup;
+package com.koma.backuprestore.restore.dialog;
 
 import android.os.Bundle;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.koma.backuprestore.R;
-import com.koma.backuprestore.commonlibrary.base.BaseFragment;
+import com.koma.backuprestore.commonlibrary.base.BaseDialogFragment;
 import com.koma.loglibrary.KomaLog;
 
-public class BackupFragment extends BaseFragment implements BackupContract.View {
-    private static final String TAG = BackupFragment.class.getSimpleName();
+import butterknife.BindView;
 
-    private BackupContract.Presenter mPresenter;
+/**
+ * Created by koma on 4/8/18.
+ */
 
-    public static BackupFragment newInstance() {
-        return new BackupFragment();
-    }
+public class RestoreProgressDialogFragment extends BaseDialogFragment {
+    private static final String TAG = RestoreProgressDialogFragment.class.getSimpleName();
+
+    @BindView(R.id.tv_title)
+    TextView mTitle;
+    @BindView(R.id.tv_current_count)
+    TextView mCurrentCount;
+    @BindView(R.id.tv_done)
+    TextView mDone;
+    @BindView(R.id.tv_total_count)
+    TextView mTotalCount;
+    @BindView(R.id.progress_bar)
+    ContentLoadingProgressBar mProgressBar;
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         KomaLog.i(TAG, "onViewCreated");
-
     }
 
     @Override
-    public int getLayoutId() {
-        return R.layout.fragment_backup;
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        KomaLog.i(TAG, "onDestroyView");
     }
 
     @Override
-    public void setPresenter(BackupContract.Presenter presenter) {
-        mPresenter = presenter;
+    protected int getLayoutId() {
+        return R.layout.dialog_restore;
     }
 }

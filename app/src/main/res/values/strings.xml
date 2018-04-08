@@ -8,5 +8,9 @@
 
     <!--Restore-->
     <!--AccessibilityService-->
-    <string name="accessibility_service_description" translatable="false">"Application automatic installation services."</string>
+    <string name="accessibility_service_description">"Application automatic installation services."</string>
+
+    <!--DialogFragment-->
+    <string name="divider_description" translatable="false">"/"</string>
+    <string name="done">Done</string>
 </resources>

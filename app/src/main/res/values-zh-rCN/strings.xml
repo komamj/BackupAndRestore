@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">"换机助手"</string>
+
+    <string name="navigation_drawer_open">"打开抽屉栏"</string>
+    <string name="navigation_drawer_close">"关闭抽屉栏"</string>
+
+    <string name="action_settings">"设置"</string>
+
+    <!--Restore-->
+    <!--AccessibilityService-->
+    <string name="accessibility_service_description">"应用自动安装服务"</string>
+
+    <!--DialogFragment-->
+    <string name="done">"完成"</string>
+</resources>

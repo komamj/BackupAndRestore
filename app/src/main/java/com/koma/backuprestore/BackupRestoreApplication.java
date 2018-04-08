@@ -16,14 +16,14 @@
 package com.koma.backuprestore;
 
 import android.app.Application;
+import android.os.StrictMode;
 
 import com.bumptech.glide.Glide;
 import com.koma.backuprestore.modellibrary.ApplicationModule;
 import com.koma.backuprestore.modellibrary.BackupRestoreRepositoryComponent;
 import com.koma.backuprestore.modellibrary.BackupRestoreRepositoryModule;
 import com.koma.backuprestore.modellibrary.DaggerBackupRestoreRepositoryComponent;
-
-import backup.koma.com.loglibrary.KomaLog;
+import com.koma.loglibrary.KomaLog;
 
 /**
  * Created by koma on 2/28/18.
@@ -42,10 +42,27 @@ public class BackupRestoreApplication extends Application {
                 .applicationModule(new ApplicationModule(this))
                 .backupRestoreRepositoryModule(new BackupRestoreRepositoryModule())
                 .build();
+
+        if (BuildConfig.DEBUG) {
+            setStrictMode();
+        }
     }
 
     public BackupRestoreRepositoryComponent getRepositoryComponent() {
         return mRepositoryComponent;
+    }
+
+    private void setStrictMode() {
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectAll()
+                .penaltyLog()
+                .build());
+
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectLeakedSqlLiteObjects()
+                .penaltyLog()
+                .penaltyDeath()
+                .build());
     }
 
     @Override

@@ -30,6 +30,8 @@ import android.view.View;
 
 import com.koma.backuprestore.commonlibrary.base.BaseActivity;
 
+import java.io.File;
+
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = MainActivity.class.getSimpleName();

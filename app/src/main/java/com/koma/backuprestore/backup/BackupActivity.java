@@ -20,10 +20,9 @@ import android.os.Bundle;
 import com.koma.backuprestore.BackupRestoreApplication;
 import com.koma.backuprestore.R;
 import com.koma.backuprestore.commonlibrary.base.BaseActivity;
+import com.koma.loglibrary.KomaLog;
 
 import javax.inject.Inject;
-
-import backup.koma.com.loglibrary.KomaLog;
 
 public class BackupActivity extends BaseActivity {
     private static final String TAG = BackupActivity.class.getSimpleName();

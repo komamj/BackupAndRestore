@@ -98,6 +98,7 @@ dependencies {
 
     implementation project(':loglibrary')
     implementation project(':commonlibrary')
+    implementation project(':vcardlibrary')
     implementation project(':modellibrary')
 
     testImplementation "junit:junit:$rootProject.ext.junit_version"
