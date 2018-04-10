@@ -18,7 +18,6 @@ package com.koma.backuprestore.commonlibrary.base;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import butterknife.ButterKnife;
@@ -40,17 +39,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.requestEach(getPermissions())
-                .subscribe(new Consumer<Permission>() {
+        rxPermissions.request(getPermissions())
+                .subscribe(new Consumer<Boolean>() {
                     @Override
-                    public void accept(Permission permission) throws Exception {
-                        if (permission.granted) {
+                    public void accept(Boolean isGranted) throws Exception {
+                        if (isGranted) {
                             // 用户已经同意该权限
                             onPermissonGranted();
-                        } else if (permission.shouldShowRequestPermissionRationale) {
-                            // 用户拒绝了该权限，没有选中不再询问
                         } else {
-                            // 用户拒绝了该权限，并且选中不再询问
+                            // 用户拒绝了该权限
                         }
                     }
                 });

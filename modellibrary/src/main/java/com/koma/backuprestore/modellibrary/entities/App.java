@@ -15,10 +15,14 @@
  */
 package com.koma.backuprestore.modellibrary.entities;
 
+import android.graphics.drawable.Drawable;
+
 /**
  * Created by koma on 2/28/18.
  */
 
-public class Apk {
+public class App {
+    public CharSequence label;
     public String packageName;
+    public Drawable icon;
 }

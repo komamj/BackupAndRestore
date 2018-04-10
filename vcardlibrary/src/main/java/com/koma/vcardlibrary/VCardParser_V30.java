@@ -39,7 +39,7 @@ import java.util.Set;
  * </p>
  */
 public class VCardParser_V30 extends VCardParser {
-    /* package */ static final Set<String> sKnownPropertyNameSet =
+    static final Set<String> sKnownPropertyNameSet =
             Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
                     "BEGIN", "END", "LOGO", "PHOTO", "LABEL", "FN", "TITLE", "SOUND",
                     "VERSION", "TEL", "EMAIL", "TZ", "GEO", "NOTE", "URL",

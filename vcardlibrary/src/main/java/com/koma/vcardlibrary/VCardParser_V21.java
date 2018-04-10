@@ -44,7 +44,7 @@ public final class VCardParser_V21 extends VCardParser {
     /**
      * A unmodifiable Set storing the property names available in the vCard 2.1 specification.
      */
-    /* package */ static final Set<String> sKnownPropertyNameSet =
+    static final Set<String> sKnownPropertyNameSet =
             Collections.unmodifiableSet(new HashSet<String>(
                     Arrays.asList("BEGIN", "END", "LOGO", "PHOTO", "LABEL", "FN", "TITLE", "SOUND",
                             "VERSION", "TEL", "EMAIL", "TZ", "GEO", "NOTE", "URL",
@@ -53,7 +53,7 @@ public final class VCardParser_V21 extends VCardParser {
     /**
      * A unmodifiable Set storing the types known in vCard 2.1.
      */
-    /* package */ static final Set<String> sKnownTypeSet =
+    static final Set<String> sKnownTypeSet =
             Collections.unmodifiableSet(new HashSet<String>(
                     Arrays.asList("DOM", "INTL", "POSTAL", "PARCEL", "HOME", "WORK",
                             "PREF", "VOICE", "FAX", "MSG", "CELL", "PAGER", "BBS",

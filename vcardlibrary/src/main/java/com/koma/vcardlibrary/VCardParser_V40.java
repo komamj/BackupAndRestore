@@ -35,7 +35,7 @@ import java.util.Set;
  * </p>
  */
 public class VCardParser_V40 extends VCardParser {
-    /* package */ static final Set<String> sKnownPropertyNameSet =
+    static final Set<String> sKnownPropertyNameSet =
             Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
                     "BEGIN", "END", "VERSION",
                     "SOURCE", "KIND", "FN", "N", "NICKNAME",
@@ -50,7 +50,7 @@ public class VCardParser_V40 extends VCardParser {
      * A unmodifiable Set storing the values for the type "ENCODING", available in vCard 4.0.
      * </p>
      */
-    /* package */ static final Set<String> sAcceptableEncoding =
+    static final Set<String> sAcceptableEncoding =
             Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
                     VCardConstants.PARAM_ENCODING_8BIT,
                     VCardConstants.PARAM_ENCODING_B)));

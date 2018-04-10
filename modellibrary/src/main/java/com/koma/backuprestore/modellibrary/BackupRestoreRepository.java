@@ -15,7 +15,7 @@
  */
 package com.koma.backuprestore.modellibrary;
 
-import com.koma.backuprestore.modellibrary.entities.Apk;
+import com.koma.backuprestore.modellibrary.entities.App;
 import com.koma.backuprestore.modellibrary.entities.Image;
 import com.koma.backuprestore.modellibrary.entities.Video;
 import com.koma.backuprestore.modellibrary.source.IBackupRestoreDataSource;
@@ -52,12 +52,57 @@ public class BackupRestoreRepository implements IBackupRestoreDataSource, IBacku
     }
 
     @Override
-    public Flowable<List<Apk>> getApks() {
-        return mBackupDataSource.getApks();
+    public Flowable<List<App>> getApps() {
+        return mBackupDataSource.getApps();
     }
 
     @Override
     public Flowable<List<Image>> getImages() {
         return mBackupDataSource.getImages();
+    }
+
+    @Override
+    public Flowable<String> getContactCount() {
+        return null;
+    }
+
+    @Override
+    public Flowable<String> getSmsCount() {
+        return null;
+    }
+
+    @Override
+    public Flowable<String> getCallLogCount() {
+        return null;
+    }
+
+    @Override
+    public Flowable<String> getCalendarEventCount() {
+        return null;
+    }
+
+    @Override
+    public Flowable<String> getImageCount() {
+        return null;
+    }
+
+    @Override
+    public Flowable<String> getVideoCount() {
+        return null;
+    }
+
+    @Override
+    public Flowable<String> getAudioCount() {
+        return null;
+    }
+
+    @Override
+    public Flowable<String> getDocmentCount() {
+        return null;
+    }
+
+    @Override
+    public Flowable<String> getAppCount() {
+        return null;
     }
 }

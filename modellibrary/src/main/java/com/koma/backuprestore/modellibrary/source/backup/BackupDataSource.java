@@ -21,11 +21,13 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.provider.MediaStore;
 
-import com.koma.backuprestore.modellibrary.entities.Apk;
+import com.koma.backuprestore.modellibrary.entities.App;
 import com.koma.backuprestore.modellibrary.entities.Image;
 import com.koma.backuprestore.modellibrary.entities.Video;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -101,32 +103,103 @@ public class BackupDataSource implements IBackupDataSource {
     }
 
     @Override
-    public Flowable<List<Apk>> getApks() {
-        return Flowable.create(new FlowableOnSubscribe<List<Apk>>() {
+    public Flowable<String> getContactCount() {
+        return null;
+    }
+
+    @Override
+    public Flowable<String> getSmsCount() {
+        return null;
+    }
+
+    @Override
+    public Flowable<String> getCallLogCount() {
+        return null;
+    }
+
+    @Override
+    public Flowable<String> getCalendarEventCount() {
+        return null;
+    }
+
+    @Override
+    public Flowable<String> getImageCount() {
+        return null;
+    }
+
+    @Override
+    public Flowable<String> getVideoCount() {
+        return null;
+    }
+
+    @Override
+    public Flowable<String> getAudioCount() {
+        return null;
+    }
+
+    @Override
+    public Flowable<String> getDocmentCount() {
+        return null;
+    }
+
+    @Override
+    public Flowable<String> getAppCount() {
+        return Flowable.create(new FlowableOnSubscribe<String>() {
             @Override
-            public void subscribe(FlowableEmitter<List<Apk>> emitter) throws Exception {
-                List<ApplicationInfo> applicationInfos = mContext.getPackageManager()
-                        .getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
-
-                List<Apk> apks = new ArrayList<>();
-
-                for (ApplicationInfo applicationInfo : applicationInfos) {
-                    if ((ApplicationInfo.FLAG_SYSTEM & applicationInfo.flags) != 0) {
-                        continue;
-                    }
-
-                    if(applicationInfo.loadIcon(mContext.getPackageManager()) ==null){
-                        continue;
-                    }
-
-                    Apk apk = new Apk();
-                    apk.packageName = applicationInfo.packageName;
-                    apks.add(apk);
-                }
-
-                emitter.onNext(apks);
+            public void subscribe(FlowableEmitter<String> emitter) throws Exception {
+                emitter.onNext(String.valueOf(getApplicationInfos(mContext).size()));
                 emitter.onComplete();
             }
         }, BackpressureStrategy.LATEST);
+    }
+
+    @Override
+    public Flowable<List<App>> getApps() {
+        return Flowable.create(new FlowableOnSubscribe<List<App>>() {
+            @Override
+            public void subscribe(FlowableEmitter<List<App>> emitter) throws Exception {
+                PackageManager packageManager = mContext.getPackageManager();
+
+                List<App> apps = new ArrayList<>();
+
+                for (ApplicationInfo applicationInfo : getApplicationInfos(mContext)) {
+                        App app = new App();
+                        app.label = applicationInfo.loadLabel(packageManager);
+                        app.packageName = applicationInfo.packageName;
+                        app.icon = applicationInfo.loadIcon(packageManager);
+                        apps.add(app);
+                }
+
+                // sort apps
+                Collections.sort(apps, new Comparator<App>() {
+                    @Override
+                    public int compare(App app1, App app2) {
+                        String left = new StringBuilder(app1.label).toString();
+                        String right = new StringBuilder(app2.label).toString();
+                        if (left != null && right != null) {
+                            return left.compareTo(right);
+                        }
+                        return 0;
+                    }
+                });
+
+                emitter.onNext(apps);
+                emitter.onComplete();
+            }
+        }, BackpressureStrategy.LATEST);
+    }
+
+    private static List<ApplicationInfo> getApplicationInfos(Context context) {
+        List<ApplicationInfo> applicationInfos = new ArrayList<>();
+
+        for (ApplicationInfo applicationInfo : context.getPackageManager()
+                .getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES)) {
+            if (!((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == ApplicationInfo.FLAG_SYSTEM)
+                    && !applicationInfo.packageName.equalsIgnoreCase(context.getPackageName())) {
+                applicationInfos.add(applicationInfo);
+            }
+        }
+
+        return applicationInfos;
     }
 }

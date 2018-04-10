@@ -43,7 +43,7 @@ import java.util.Set;
  *
  * @hide
  */
-/* package */ class VCardParserImpl_V21 {
+class VCardParserImpl_V21 {
     private static final String LOG_TAG = VCardConstants.LOG_TAG;
     private static final String DEFAULT_ENCODING = "8BIT";
     private static final String DEFAULT_CHARSET = "UTF-8";

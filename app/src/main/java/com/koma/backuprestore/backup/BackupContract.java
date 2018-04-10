@@ -20,6 +20,7 @@ import com.koma.backuprestore.commonlibrary.base.BaseView;
 
 public interface BackupContract {
     interface View extends BaseView<Presenter> {
+        boolean isActive();
     }
 
     interface Presenter extends BasePresenter {

@@ -31,12 +31,29 @@ public class BackupFragment extends BaseFragment implements BackupContract.View 
         return new BackupFragment();
     }
 
+    public BackupFragment() {
+    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         KomaLog.i(TAG, "onViewCreated");
 
+        if (mPresenter != null) {
+            mPresenter.subscribe();
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        KomaLog.i(TAG, "onDestroyView");
+
+        if (mPresenter != null) {
+            mPresenter.unSubscribe();
+        }
     }
 
     @Override
@@ -47,5 +64,10 @@ public class BackupFragment extends BaseFragment implements BackupContract.View 
     @Override
     public void setPresenter(BackupContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    @Override
+    public boolean isActive() {
+        return this.isAdded();
     }
 }

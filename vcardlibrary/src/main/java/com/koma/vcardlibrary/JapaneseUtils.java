@@ -22,9 +22,8 @@ import java.util.Map;
 /**
  * TextUtils especially for Japanese.
  */
-/* package */ class JapaneseUtils {
-    static private final Map<Character, String> sHalfWidthMap =
-            new HashMap<Character, String>();
+class JapaneseUtils {
+    static private final Map<Character, String> sHalfWidthMap = new HashMap<Character, String>();
 
     static {
         sHalfWidthMap.put('\u3001', "\uFF64");

@@ -16,7 +16,7 @@
 package com.koma.backuprestore.backup;
 
 import com.koma.backuprestore.modellibrary.BackupRestoreRepository;
-import com.koma.backuprestore.modellibrary.entities.Apk;
+import com.koma.backuprestore.modellibrary.entities.App;
 import com.koma.loglibrary.KomaLog;
 
 import java.util.List;
@@ -54,22 +54,21 @@ public class BackupPresenter implements BackupContract.Presenter {
 
     @Override
     public void subscribe() {
-
     }
 
     @Override
     public void unSubscribe() {
-
+        mDisposables.clear();
     }
 
     @Override
     public void loadApks() {
-        Disposable disposable = mRepository.getApks()
+        Disposable disposable = mRepository.getApps()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSubscriber<List<Apk>>() {
+                .subscribeWith(new DisposableSubscriber<List<App>>() {
                     @Override
-                    public void onNext(List<Apk> apks) {
+                    public void onNext(List<App> apks) {
 
                     }
 

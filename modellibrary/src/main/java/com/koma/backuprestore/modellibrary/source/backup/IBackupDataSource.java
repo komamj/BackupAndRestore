@@ -15,7 +15,7 @@
  */
 package com.koma.backuprestore.modellibrary.source.backup;
 
-import com.koma.backuprestore.modellibrary.entities.Apk;
+import com.koma.backuprestore.modellibrary.entities.App;
 import com.koma.backuprestore.modellibrary.entities.Image;
 import com.koma.backuprestore.modellibrary.entities.Video;
 import com.koma.backuprestore.modellibrary.source.IBackupRestoreDataSource;
@@ -31,7 +31,27 @@ import io.reactivex.Flowable;
 public interface IBackupDataSource extends IBackupRestoreDataSource {
     Flowable<List<Video>> getVideos();
 
-    Flowable<List<Apk>> getApks();
+    Flowable<List<App>> getApps();
 
     Flowable<List<Image>> getImages();
+
+    Flowable<String> getContactCount();
+
+    Flowable<String> getSmsCount();
+
+    Flowable<String> getCallLogCount();
+
+    Flowable<String> getCalendarEventCount();
+
+    Flowable<String> getImageCount();
+
+    Flowable<String> getVideoCount();
+
+    Flowable<String> getAudioCount();
+
+    Flowable<String> getDocmentCount();
+
+    Flowable<String> getAppCount();
+
+
 }
