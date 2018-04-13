@@ -20,9 +20,17 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+-keep class android.support.v4.widget.DrawerLayout { *; }
+
 -keepclassmembers class **.R$* {
     public static <fields>;
 }
+
+-keep class android.databinding.** { *; }
+
+-ignorewarnings
+
+-keepattributes *Annotation*
 
 #RxJava
 -dontwarn sun.misc.**

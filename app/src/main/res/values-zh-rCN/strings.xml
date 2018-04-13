@@ -9,6 +9,8 @@
     <!--Restore-->
     <!--AccessibilityService-->
     <string name="accessibility_service_description">"应用自动安装服务"</string>
+    <string name="updating_data">"正在更新数据"</string>
+    <string name="updated">"更新成功"</string>
 
     <!--DialogFragment-->
     <string name="done">"完成"</string>

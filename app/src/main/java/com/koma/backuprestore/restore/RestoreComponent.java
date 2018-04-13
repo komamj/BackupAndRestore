@@ -16,7 +16,7 @@
 package com.koma.backuprestore.restore;
 
 import com.koma.backuprestore.commonlibrary.util.ServiceScoped;
-import com.koma.backuprestore.modellibrary.BackupRestoreRepositoryComponent;
+import com.koma.backuprestore.data.BackupRestoreRepositoryComponent;
 
 import dagger.Component;
 

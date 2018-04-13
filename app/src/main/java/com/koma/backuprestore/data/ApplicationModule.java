@@ -13,15 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.koma.backuprestore.backup;
+package com.koma.backuprestore.data;
 
-import com.koma.backuprestore.commonlibrary.util.ActivityScoped;
-import com.koma.backuprestore.data.BackupRestoreRepositoryComponent;
+import android.content.Context;
 
-import dagger.Component;
+import javax.inject.Singleton;
 
-@ActivityScoped
-@Component(dependencies = BackupRestoreRepositoryComponent.class, modules = BackupPresenterModule.class)
-public interface BackupComponent {
-    void inject(BackupActivity backupActivity);
+import dagger.Module;
+import dagger.Provides;
+
+/**
+ * Created by koma on 2/28/18.
+ */
+@Singleton
+@Module
+public class ApplicationModule {
+    private final Context mContext;
+
+    public ApplicationModule(Context context) {
+        mContext = context;
+    }
+
+    @Singleton
+    @Provides
+    public Context provideContext() {
+        return mContext;
+    }
 }

@@ -13,15 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.koma.backuprestore.backup;
+package com.koma.backuprestore.data.source.restore;
 
-import com.koma.backuprestore.commonlibrary.util.ActivityScoped;
-import com.koma.backuprestore.data.BackupRestoreRepositoryComponent;
+import com.koma.backuprestore.data.source.IBackupRestoreDataSource;
 
-import dagger.Component;
+import io.reactivex.Flowable;
 
-@ActivityScoped
-@Component(dependencies = BackupRestoreRepositoryComponent.class, modules = BackupPresenterModule.class)
-public interface BackupComponent {
-    void inject(BackupActivity backupActivity);
+/**
+ * Created by koma on 3/20/18.
+ */
+
+public interface IRestoreDataSource extends IBackupRestoreDataSource {
+    Flowable<Integer> getContactCount(String fileName);
+
+    Flowable<Integer> restoreContacts(String fileName);
 }

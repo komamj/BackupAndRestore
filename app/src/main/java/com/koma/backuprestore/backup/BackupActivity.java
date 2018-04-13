@@ -33,6 +33,7 @@ import com.koma.backuprestore.BackupRestoreApplication;
 import com.koma.backuprestore.R;
 import com.koma.backuprestore.commonlibrary.base.BaseActivity;
 import com.koma.backuprestore.commonlibrary.util.ActivityUtils;
+import com.koma.backuprestore.restore.dialog.RestoreProgressDialogFragment;
 import com.koma.loglibrary.KomaLog;
 
 import javax.inject.Inject;

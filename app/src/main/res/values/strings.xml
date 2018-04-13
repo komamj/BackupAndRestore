@@ -9,6 +9,8 @@
     <!--Restore-->
     <!--AccessibilityService-->
     <string name="accessibility_service_description">"Application automatic installation services."</string>
+    <string name="updating_data">"Updating data"</string>
+    <string name="updated">"The update is successful"</string>
 
     <!--DialogFragment-->
     <string name="divider_description" translatable="false">"/"</string>

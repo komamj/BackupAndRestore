@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.koma.backuprestore.backup;
+package com.koma.backuprestore.data.entities;
 
-import com.koma.backuprestore.commonlibrary.util.ActivityScoped;
-import com.koma.backuprestore.data.BackupRestoreRepositoryComponent;
+import android.graphics.drawable.Drawable;
 
-import dagger.Component;
+/**
+ * Created by koma on 2/28/18.
+ */
 
-@ActivityScoped
-@Component(dependencies = BackupRestoreRepositoryComponent.class, modules = BackupPresenterModule.class)
-public interface BackupComponent {
-    void inject(BackupActivity backupActivity);
+public class App {
+    public CharSequence label;
+    public String packageName;
+    public Drawable icon;
 }

@@ -23,7 +23,9 @@ public interface RestoreContract {
     }
 
     interface Presenter extends BasePresenter {
-        void restoreContact();
+        void loadContactCount(String fileName);
+
+        void restoreContacts(String fileName);
 
         void restoreCallLog();
 

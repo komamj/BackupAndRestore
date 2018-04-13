@@ -15,8 +15,8 @@
  */
 package com.koma.backuprestore.backup;
 
-import com.koma.backuprestore.modellibrary.BackupRestoreRepository;
-import com.koma.backuprestore.modellibrary.entities.App;
+import com.koma.backuprestore.data.BackupRestoreRepository;
+import com.koma.backuprestore.data.entities.App;
 import com.koma.loglibrary.KomaLog;
 
 import java.util.List;

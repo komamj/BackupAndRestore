@@ -15,11 +15,15 @@
  */
 package com.koma.backuprestore.restore;
 
-import com.koma.backuprestore.modellibrary.BackupRestoreRepository;
+import com.koma.backuprestore.data.BackupRestoreRepository;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subscribers.DisposableSubscriber;
 
 public class RestorePresenter implements RestoreContract.Presenter {
     private static final String TAG = RestorePresenter.class.getSimpleName();
@@ -29,6 +33,8 @@ public class RestorePresenter implements RestoreContract.Presenter {
     private final BackupRestoreRepository mRepository;
 
     private final CompositeDisposable mDisposables;
+
+    private int mCount = 0;
 
     @Inject
     public RestorePresenter(RestoreContract.View view, BackupRestoreRepository repository) {
@@ -53,10 +59,51 @@ public class RestorePresenter implements RestoreContract.Presenter {
     public void unSubscribe() {
         mDisposables.clear();
     }
+    @Override
+    public void loadContactCount(String fileName) {
+        Disposable disposable = mRepository.getContactCount(fileName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSubscriber<Integer>() {
+                    @Override
+                    public void onNext(Integer integer) {
+                        mCount += integer;
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+        mDisposables.add(disposable);
+    }
 
     @Override
-    public void restoreContact() {
+    public void restoreContacts(String fileName) {
+        Disposable disposable = mRepository.restoreContacts(fileName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSubscriber<Integer>() {
+                    @Override
+                    public void onNext(Integer integer) {
 
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+        mDisposables.add(disposable);
     }
 
     @Override

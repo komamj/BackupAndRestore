@@ -19,10 +19,10 @@ import android.app.Application;
 import android.os.StrictMode;
 
 import com.bumptech.glide.Glide;
-import com.koma.backuprestore.modellibrary.ApplicationModule;
-import com.koma.backuprestore.modellibrary.BackupRestoreRepositoryComponent;
-import com.koma.backuprestore.modellibrary.BackupRestoreRepositoryModule;
-import com.koma.backuprestore.modellibrary.DaggerBackupRestoreRepositoryComponent;
+import com.koma.backuprestore.data.ApplicationModule;
+import com.koma.backuprestore.data.BackupRestoreRepositoryComponent;
+import com.koma.backuprestore.data.BackupRestoreRepositoryModule;
+import com.koma.backuprestore.data.DaggerBackupRestoreRepositoryComponent;
 import com.koma.loglibrary.KomaLog;
 
 /**

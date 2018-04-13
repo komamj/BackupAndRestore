@@ -21,6 +21,10 @@ import android.provider.CallLog;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.provider.Telephony;
+import android.support.annotation.IntDef;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * Created by koma on 3/25/18.
@@ -40,4 +44,21 @@ public class Constants {
     public static final Uri DOCUMENT_URI = MediaStore.Files.getContentUri("external");
 
     public static final String DEFAULT_SMS_PACKAGE_NAME ="default_sms_package_name";
+
+    public static final String CATEGORY_TAG = "category_tag";
+    public static final int CATEGORY_CANTACT = 0;
+    public static final int CATEGORY_SMS = 1;
+    public static final int CATEGORY_CALL_LOG = 2;
+    public static final int CATEGORY_CALENDAR_EVENT = 3;
+    public static final int CATEGORY_IMAGE = 4;
+    public static final int CATEGORY_VIDEO = 5;
+    public static final int CATEGORY_AUDIO = 6;
+    public static final int CATEGORY_DOCUMENT = 7;
+    public static final int CATEGORY_APP = 8;
+
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({CATEGORY_CANTACT, CATEGORY_SMS, CATEGORY_CALL_LOG, CATEGORY_CALENDAR_EVENT,
+            CATEGORY_IMAGE, CATEGORY_VIDEO, CATEGORY_AUDIO, CATEGORY_DOCUMENT, CATEGORY_APP})
+    public @interface Category {
+    }
 }

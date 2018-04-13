@@ -19,6 +19,7 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 
+import com.koma.loglibrary.KomaLog;
 import com.koma.vcardlibrary.exception.VCardAgentNotSupportedException;
 import com.koma.vcardlibrary.exception.VCardException;
 import com.koma.vcardlibrary.exception.VCardInvalidCommentLineException;
@@ -957,7 +958,7 @@ class VCardParserImpl_V21 {
         while (true) {
             synchronized (this) {
                 if (mCanceled) {
-                    Log.i(LOG_TAG, "Cancel request has come. exitting parse operation.");
+                    KomaLog.i(LOG_TAG, "Cancel request has come. exitting parse operation.");
                     break;
                 }
             }

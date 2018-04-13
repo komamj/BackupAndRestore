@@ -11,6 +11,10 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
+    dataBinding {
+        enabled = true
+    }
+
     //签名配置
     signingConfigs {
         release {
@@ -99,7 +103,6 @@ dependencies {
     implementation project(':loglibrary')
     implementation project(':commonlibrary')
     implementation project(':vcardlibrary')
-    implementation project(':modellibrary')
 
     testImplementation "junit:junit:$rootProject.ext.junit_version"
     androidTestImplementation "com.android.support.test:runner:$rootProject.ext.runner_version"

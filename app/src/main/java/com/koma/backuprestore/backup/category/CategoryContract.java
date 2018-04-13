@@ -13,15 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.koma.backuprestore.backup;
+package com.koma.backuprestore.backup.category;
 
-import com.koma.backuprestore.commonlibrary.util.ActivityScoped;
-import com.koma.backuprestore.data.BackupRestoreRepositoryComponent;
+import com.koma.backuprestore.commonlibrary.base.BasePresenter;
+import com.koma.backuprestore.commonlibrary.base.BaseView;
 
-import dagger.Component;
+/**
+ * Created by koma on 4/11/18.
+ */
 
-@ActivityScoped
-@Component(dependencies = BackupRestoreRepositoryComponent.class, modules = BackupPresenterModule.class)
-public interface BackupComponent {
-    void inject(BackupActivity backupActivity);
+public interface CategoryContract {
+    interface View extends BaseView<Presenter> {
+        void setLoadingIndicator(boolean isActive);
+    }
+
+    interface Presenter extends BasePresenter {
+    }
 }
