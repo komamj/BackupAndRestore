@@ -47,7 +47,7 @@ public class CategoryActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_base;
+        return R.layout.base_activity;
     }
 
     @Override

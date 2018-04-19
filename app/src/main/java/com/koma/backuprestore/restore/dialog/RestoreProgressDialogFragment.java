@@ -84,6 +84,6 @@ public class RestoreProgressDialogFragment extends BaseDialogFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.dialog_restore;
+        return R.layout.restore_dialog;
     }
 }

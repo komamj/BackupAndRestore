@@ -23,6 +23,7 @@
     <application
         android:name=".BackupRestoreApplication"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -43,7 +44,8 @@
 
         <service
             android:name=".restore.RestoreService"
-            android:enabled="false" />
+            android:enabled="true"
+            android:exported="false" />
         <!--静默安装-->
         <service
             android:name=".restore.InstallAccessibilityService"

@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingEnd="@dimen/activity_horizontal_margin"
+    android:paddingStart="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <ImageView
+        android:id="@+id/iv_cantacts"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/ic_contacts_24dp"
+        app:layout_constraintEnd_toStartOf="@id/iv_sms"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_contacts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/contacts"
+        app:layout_constraintEnd_toEndOf="@id/iv_cantacts"
+        app:layout_constraintStart_toStartOf="@id/iv_cantacts"
+        app:layout_constraintTop_toBottomOf="@id/iv_cantacts" />
+
+    <TextView
+        android:id="@+id/tv_contacts_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/tv_contacts"
+        app:layout_constraintEnd_toEndOf="@id/iv_cantacts"
+        app:layout_constraintStart_toStartOf="@id/iv_cantacts" />
+
+    <ImageView
+        android:id="@+id/iv_sms"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/ic_sms_24dp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_cantacts"
+        app:layout_constraintEnd_toStartOf="@id/iv_call_log"
+        app:layout_constraintStart_toEndOf="@id/iv_cantacts"
+        app:layout_constraintTop_toTopOf="@id/iv_cantacts" />
+
+    <TextView
+        android:id="@+id/tv_sms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sms"
+        app:layout_constraintEnd_toEndOf="@id/iv_sms"
+        app:layout_constraintStart_toStartOf="@id/iv_sms"
+        app:layout_constraintTop_toBottomOf="@id/iv_sms" />
+
+    <TextView
+        android:id="@+id/tv_sms_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/tv_sms"
+        app:layout_constraintEnd_toEndOf="@id/iv_sms"
+        app:layout_constraintStart_toStartOf="@id/iv_sms" />
+
+    <ImageView
+        android:id="@+id/iv_call_log"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/ic_call_24dp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_cantacts"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_sms"
+        app:layout_constraintTop_toTopOf="@id/iv_cantacts" />
+
+    <TextView
+        android:id="@+id/tv_call_log"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/call_log"
+        app:layout_constraintEnd_toEndOf="@id/iv_call_log"
+        app:layout_constraintStart_toStartOf="@id/iv_call_log"
+        app:layout_constraintTop_toBottomOf="@id/iv_call_log" />
+
+    <TextView
+        android:id="@+id/tv_call_log_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/tv_call_log"
+        app:layout_constraintEnd_toEndOf="@id/iv_call_log"
+        app:layout_constraintStart_toStartOf="@id/iv_call_log" />
+
+    <ImageView
+        android:id="@+id/iv_calendar_event"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:src="@drawable/ic_event_24dp"
+        app:layout_constraintEnd_toEndOf="@id/iv_cantacts"
+        app:layout_constraintStart_toStartOf="@id/iv_cantacts"
+        app:layout_constraintTop_toBottomOf="@id/tv_contacts_count" />
+
+    <TextView
+        android:id="@+id/tv_calendar_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/calendar_event"
+        app:layout_constraintEnd_toEndOf="@id/iv_calendar_event"
+        app:layout_constraintStart_toStartOf="@id/iv_calendar_event"
+        app:layout_constraintTop_toBottomOf="@id/iv_calendar_event" />
+
+    <TextView
+        android:id="@+id/tv_calendar_event_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/tv_calendar_event"
+        app:layout_constraintEnd_toEndOf="@id/iv_calendar_event"
+        app:layout_constraintStart_toStartOf="@id/iv_calendar_event" />
+
+    <ImageView
+        android:id="@+id/iv_image"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:src="@drawable/ic_image_24dp"
+        app:layout_constraintEnd_toEndOf="@id/iv_sms"
+        app:layout_constraintStart_toStartOf="@id/iv_sms"
+        app:layout_constraintTop_toBottomOf="@id/tv_sms_count" />
+
+    <TextView
+        android:id="@+id/tv_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/image"
+        app:layout_constraintEnd_toEndOf="@id/iv_image"
+        app:layout_constraintStart_toStartOf="@id/iv_image"
+        app:layout_constraintTop_toBottomOf="@id/iv_image" />
+
+    <TextView
+        android:id="@+id/tv_image_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/tv_image"
+        app:layout_constraintEnd_toEndOf="@id/iv_image"
+        app:layout_constraintStart_toStartOf="@id/iv_image" />
+
+    <ImageView
+        android:id="@+id/iv_video"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:src="@drawable/ic_video_24dp"
+        app:layout_constraintEnd_toEndOf="@id/iv_call_log"
+        app:layout_constraintStart_toStartOf="@id/iv_call_log"
+        app:layout_constraintTop_toBottomOf="@id/tv_call_log_count" />
+
+    <TextView
+        android:id="@+id/tv_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/video"
+        app:layout_constraintEnd_toEndOf="@id/iv_video"
+        app:layout_constraintStart_toStartOf="@id/iv_video"
+        app:layout_constraintTop_toBottomOf="@id/iv_video" />
+
+    <TextView
+        android:id="@+id/tv_video_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/tv_video"
+        app:layout_constraintEnd_toEndOf="@id/iv_video"
+        app:layout_constraintStart_toStartOf="@id/iv_video" />
+
+    <ImageView
+        android:id="@+id/iv_audio"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:src="@drawable/ic_music_24dp"
+        app:layout_constraintEnd_toEndOf="@id/iv_calendar_event"
+        app:layout_constraintStart_toStartOf="@id/iv_calendar_event"
+        app:layout_constraintTop_toBottomOf="@id/tv_calendar_event_count" />
+
+    <TextView
+        android:id="@+id/tv_audio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/audio"
+        app:layout_constraintEnd_toEndOf="@id/iv_audio"
+        app:layout_constraintStart_toStartOf="@id/iv_audio"
+        app:layout_constraintTop_toBottomOf="@id/iv_audio" />
+
+    <TextView
+        android:id="@+id/tv_audio_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/tv_audio"
+        app:layout_constraintEnd_toEndOf="@id/iv_audio"
+        app:layout_constraintStart_toStartOf="@id/iv_audio" />
+
+    <ImageView
+        android:id="@+id/iv_document"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:src="@drawable/ic_document_24dp"
+        app:layout_constraintEnd_toEndOf="@id/iv_image"
+        app:layout_constraintStart_toStartOf="@id/iv_image"
+        app:layout_constraintTop_toBottomOf="@id/tv_image_count" />
+
+    <TextView
+        android:id="@+id/tv_document"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/document"
+        app:layout_constraintEnd_toEndOf="@id/iv_document"
+        app:layout_constraintStart_toStartOf="@id/iv_document"
+        app:layout_constraintTop_toBottomOf="@id/iv_document" />
+
+    <TextView
+        android:id="@+id/tv_document_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/tv_document"
+        app:layout_constraintEnd_toEndOf="@id/iv_document"
+        app:layout_constraintStart_toStartOf="@id/iv_document" />
+
+    <ImageView
+        android:id="@+id/iv_app"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:src="@drawable/ic_apps_24dp"
+        app:layout_constraintEnd_toEndOf="@id/iv_video"
+        app:layout_constraintStart_toStartOf="@id/iv_video"
+        app:layout_constraintTop_toBottomOf="@id/tv_video_count" />
+
+    <TextView
+        android:id="@+id/tv_app"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app"
+        app:layout_constraintEnd_toEndOf="@id/iv_app"
+        app:layout_constraintStart_toStartOf="@id/iv_app"
+        app:layout_constraintTop_toBottomOf="@id/iv_app" />
+
+    <TextView
+        android:id="@+id/tv_app_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/tv_app"
+        app:layout_constraintEnd_toEndOf="@id/iv_app"
+        app:layout_constraintStart_toStartOf="@id/iv_app" />
+
+    <TextView
+        android:id="@+id/tv_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:text="选中数据300KB，预计耗时15s。"
+        app:layout_constraintBottom_toTopOf="@id/btn_send"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/action_send"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

@@ -59,7 +59,7 @@ public class CategoryFragment extends BaseFragment implements CategoryContract.V
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_base;
+        return R.layout.base_fragment;
     }
 
     @Override

@@ -27,4 +27,6 @@ public interface IRestoreDataSource extends IBackupRestoreDataSource {
     Flowable<Integer> getContactCount(String fileName);
 
     Flowable<Integer> restoreContacts(String fileName);
+
+    Flowable<Integer> restoreCalendarEvents(String fileName);
 }

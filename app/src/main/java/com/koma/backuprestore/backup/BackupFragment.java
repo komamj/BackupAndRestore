@@ -58,7 +58,7 @@ public class BackupFragment extends BaseFragment implements BackupContract.View 
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_backup;
+        return R.layout.backup_fragment;
     }
 
     @Override

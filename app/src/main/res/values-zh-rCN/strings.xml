@@ -6,6 +6,19 @@
 
     <string name="action_settings">"设置"</string>
 
+    <!--Backup-->
+    <string name="contacts">"联系人"</string>
+    <string name="sms">"短信"</string>
+    <string name="call_log">"通话记录"</string>
+    <string name="calendar_event">"日历事件"</string>
+    <string name="image">"图片"</string>
+    <string name="video">"视频"</string>
+    <string name="audio">"音频"</string>
+    <string name="document">"文档"</string>
+    <string name="app">"应用"</string>
+    <string name="action_send">"发送"</string>
+    <string name="backup_data_description">"选中数据300KB，预计耗时15s。"</string>
+
     <!--Restore-->
     <!--AccessibilityService-->
     <string name="accessibility_service_description">"应用自动安装服务"</string>

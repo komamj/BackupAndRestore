@@ -6,6 +6,19 @@
 
     <string name="action_settings">Settings</string>
 
+    <!--Backup-->
+    <string name="contacts">"Contacts"</string>
+    <string name="sms">"Sms"</string>
+    <string name="call_log">"Call log"</string>
+    <string name="calendar_event">"Calendar event"</string>
+    <string name="image">"Image"</string>
+    <string name="video">"Video"</string>
+    <string name="audio">"Audio"</string>
+    <string name="document">"Document"</string>
+    <string name="app">"App"</string>
+    <string name="action_send">"Send"</string>
+    <string name="backup_data_description">"选中数据300KB，预计耗时15s。"</string>
+
     <!--Restore-->
     <!--AccessibilityService-->
     <string name="accessibility_service_description">"Application automatic installation services."</string>

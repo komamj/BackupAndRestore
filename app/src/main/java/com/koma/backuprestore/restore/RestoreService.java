@@ -15,7 +15,7 @@
  */
 package com.koma.backuprestore.restore;
 
-import android.app.Service;
+import android.app.IntentService;
 import android.content.Intent;
 import android.os.IBinder;
 import android.provider.Settings;
@@ -24,13 +24,23 @@ import android.support.annotation.Nullable;
 
 import com.koma.backuprestore.BackupRestoreApplication;
 
+import java.util.concurrent.ThreadPoolExecutor;
+
 import javax.inject.Inject;
 
-public class RestoreService extends Service implements RestoreContract.View {
-    private static final String TAG = RestoreService.class.getSimpleName();
+public class RestoreService extends IntentService implements RestoreContract.View {
+    private static final String TAG = "RestoreService";
 
     @Inject
     RestorePresenter mPresenter;
+
+    public RestoreService() {
+        super(TAG);
+    }
+
+    public RestoreService(String name) {
+        super(name);
+    }
 
     @Override
     public void onCreate() {
@@ -48,6 +58,11 @@ public class RestoreService extends Service implements RestoreContract.View {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    @Override
+    protected void onHandleIntent(@Nullable Intent intent) {
+
     }
 
     @MainThread

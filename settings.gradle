@@ -1,1 +1,1 @@
-include ':app', ':commonlibrary', ':loglibrary', ':vcardlibrary'
+include ':app', ':commonlibrary', ':loglibrary', ':vcardlibrary', ':vcalendarlibrary'

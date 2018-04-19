@@ -17,8 +17,11 @@ package com.koma.backuprestore.data.source.restore;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.net.Uri;
 
+import com.koma.backuprestore.data.source.restore.helper.CalendarHelper;
 import com.koma.loglibrary.KomaLog;
+import com.koma.vcalendarlibrary.VCalParser;
 import com.koma.vcardlibrary.VCardConfig;
 import com.koma.vcardlibrary.VCardEntry;
 import com.koma.vcardlibrary.VCardEntryCommitter;
@@ -27,6 +30,7 @@ import com.koma.vcardlibrary.VCardParser;
 import com.koma.vcardlibrary.VCardParser_V21;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -106,6 +110,7 @@ public class RestoreDataSource implements IRestoreDataSource {
                          *
                          * @param vcardEntry a <code>VCardEntry</code> value
                          */
+                        @Override
                         public void onEntryCreated(final VCardEntry vcardEntry) {
                             super.onEntryCreated(vcardEntry);
 
@@ -126,6 +131,58 @@ public class RestoreDataSource implements IRestoreDataSource {
                     if (inputStream != null) {
                         inputStream.close();
                     }
+                }
+            }
+        }, BackpressureStrategy.LATEST);
+    }
+
+    @Override
+    public Flowable<Integer> restoreCalendarEvents(final String fileName) {
+        return Flowable.create(new FlowableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(final FlowableEmitter<Integer> emitter) throws Exception {
+                VCalParser vCalParser;
+                File file = new File(fileName);
+                String uriFileName = null;
+                Uri uri = null;
+                if (file.exists() && file.isFile()) {
+                    uriFileName = Uri.encode(fileName);
+                    Uri.Builder uriBuilder = new Uri.Builder().scheme("file")
+                            .appendEncodedPath(uriFileName);
+                    uri = uriBuilder.build();
+                    vCalParser = new VCalParser(uri, mContext, new CalendarHelper() {
+                        @Override
+                        public void vCalOperationStarted(int totalCnt) {
+                            KomaLog.i(TAG, "vCalOperationStarted totalCount : " + totalCnt);
+                        }
+
+                        @Override
+                        public void vCalOperationFinished(int successCnt, int totalCnt, Object obj) {
+                            KomaLog.i(TAG, "vCalOperationFinished successCount : " + successCnt);
+                            emitter.onNext(successCnt);
+
+                            emitter.onComplete();
+                        }
+
+                        @Override
+                        public void vCalProcessStatusUpdate(int currentCnt, int totalCnt) {
+                            KomaLog.i(TAG, "vCalProcessStatusUpdate currentCount : " + currentCnt);
+
+                            emitter.onNext(currentCnt);
+                        }
+
+                        @Override
+                        public void vCalOperationCanceled(int finishedCnt, int totalCnt) {
+                            KomaLog.i(TAG, "vCalOperationCanceled finishedCount : " + finishedCnt);
+                        }
+
+                        @Override
+                        public void vCalOperationExceptionOccured(int finishedCnt, int totalCnt, int type) {
+                            KomaLog.i(TAG, "vCalOperationExceptionOccured finishedCount : "
+                                    + finishedCnt + ",totalCount : " + totalCnt + ",type : " + type);
+                        }
+                    });
+                    vCalParser.startParse();
                 }
             }
         }, BackpressureStrategy.LATEST);

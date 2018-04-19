@@ -103,6 +103,7 @@ dependencies {
     implementation project(':loglibrary')
     implementation project(':commonlibrary')
     implementation project(':vcardlibrary')
+    implementation project(':vcalendarlibrary')
 
     testImplementation "junit:junit:$rootProject.ext.junit_version"
     androidTestImplementation "com.android.support.test:runner:$rootProject.ext.runner_version"

@@ -115,4 +115,9 @@ public class BackupRestoreRepository implements IBackupRestoreDataSource, IBacku
     public Flowable<Integer> restoreContacts(String fileName) {
         return mRestoreDataSource.restoreContacts(fileName);
     }
+
+    @Override
+    public Flowable<Integer> restoreCalendarEvents(String fileName) {
+        return mRestoreDataSource.restoreCalendarEvents(fileName);
+    }
 }
