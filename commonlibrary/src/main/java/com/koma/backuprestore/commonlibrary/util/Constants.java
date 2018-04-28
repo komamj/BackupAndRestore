@@ -45,6 +45,12 @@ public class Constants {
 
     public static final String DEFAULT_SMS_PACKAGE_NAME ="default_sms_package_name";
 
+    public static final String MMS_XML = "mms_backup.xml";
+    public static final String MESSAGE_BOX_TYPE_INBOX = "1";
+    public static final String MESSAGE_BOX_TYPE_SENT = "2";
+    public static final String MESSAGE_BOX_TYPE_DRAFT = "3";
+    public static final String MESSAGE_BOX_TYPE_OUTBOX = "4";
+
     public static final String CATEGORY_TAG = "category_tag";
     public static final int CATEGORY_CANTACT = 0;
     public static final int CATEGORY_SMS = 1;

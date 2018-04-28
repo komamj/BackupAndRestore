@@ -18,6 +18,7 @@ package com.koma.backuprestore.backup;
 import com.koma.backuprestore.data.BackupRestoreRepository;
 import com.koma.backuprestore.data.entities.App;
 import com.koma.loglibrary.KomaLog;
+import com.koma.vcalendarlibrary.utils.LogUtil;
 
 import java.util.List;
 
@@ -54,6 +55,25 @@ public class BackupPresenter implements BackupContract.Presenter {
 
     @Override
     public void subscribe() {
+        mRepository.restoreMms("/storage/emulated/0/Mms")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSubscriber<Integer>() {
+                    @Override
+                    public void onNext(Integer integer) {
+                        KomaLog.d(TAG, "hahh    " + integer);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        KomaLog.e(TAG, "onError    " + t.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @Override

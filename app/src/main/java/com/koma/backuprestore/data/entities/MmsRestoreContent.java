@@ -13,24 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.koma.backuprestore.data.source.restore;
+package com.koma.backuprestore.data.entities;
 
-import com.koma.backuprestore.data.source.IBackupRestoreDataSource;
+import android.net.Uri;
 
-import io.reactivex.Flowable;
+import com.koma.mmslibrary.pdu.GenericPdu;
+
+import java.util.HashMap;
 
 /**
- * Created by koma on 3/20/18.
+ * Created by koma on 4/25/18.
  */
 
-public interface IRestoreDataSource extends IBackupRestoreDataSource {
-    Flowable<Integer> getContactCount(String fileName);
-
-    Flowable<Integer> restoreContacts(String fileName);
-
-    Flowable<Integer> restoreMms(String folderName);
-
-    Flowable<Integer> restoreSms(String fileName);
-
-    Flowable<Integer> restoreCalendarEvents(String fileName);
+public class MmsRestoreContent {
+    public Uri mMsgUri;
+    public HashMap<String, String> mMsgInfo = new HashMap<String, String>();
+    public GenericPdu mGenericPdu = null;
 }

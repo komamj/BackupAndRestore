@@ -19,8 +19,15 @@ import android.accounts.Account;
 import android.content.Context;
 import android.net.Uri;
 
+import com.koma.backuprestore.commonlibrary.util.Constants;
+import com.koma.backuprestore.data.entities.MmsRestoreContent;
 import com.koma.backuprestore.data.source.restore.helper.CalendarHelper;
+import com.koma.backuprestore.data.source.restore.util.MmsUtils;
 import com.koma.loglibrary.KomaLog;
+import com.koma.mmslibrary.MmsXmlInfo;
+import com.koma.mmslibrary.MmsXmlParser;
+import com.koma.mmslibrary.mtkpdu.MtkPduParser;
+import com.koma.mmslibrary.mtkpdu.MtkPduPersister;
 import com.koma.vcalendarlibrary.VCalParser;
 import com.koma.vcardlibrary.VCardConfig;
 import com.koma.vcardlibrary.VCardEntry;
@@ -35,6 +42,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -134,6 +142,64 @@ public class RestoreDataSource implements IRestoreDataSource {
                 }
             }
         }, BackpressureStrategy.LATEST);
+    }
+
+    @Override
+    public Flowable<Integer> restoreMms(final String folderName) {
+        return Flowable.create(new FlowableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(FlowableEmitter<Integer> emitter) {
+                int count = 0;
+                String content = MmsUtils.getXmlInfo(folderName + File.separator + Constants.MMS_XML);
+                List<MmsXmlInfo> recordList = MmsXmlParser.parse(content);
+                MtkPduPersister persister = MtkPduPersister.getPduPersister(mContext);
+                for (int i = 0; i < recordList.size(); i++) {
+                    MmsXmlInfo record = recordList.get(i);
+                    String msgBox = record.getMsgBox();
+                    Uri uri = MmsUtils.getMsgBoxUri(msgBox);
+                    String pduFileName = record.getID();
+                    String fileName = folderName + File.separator + pduFileName;
+                    KomaLog.d(TAG, "pduFileName : " + fileName);
+                    byte[] pduByteArray = MmsUtils.readFileContent(fileName);
+                    if (pduByteArray != null) {
+                        MmsRestoreContent tmpContent = new MmsRestoreContent();
+                        tmpContent.mMsgUri = uri;
+                        tmpContent.mMsgInfo.put("locked", record.getIsLocked());
+                        tmpContent.mMsgInfo.put("read", record.getIsRead());
+                        tmpContent.mMsgInfo.put("sub_id", "-1");
+                        tmpContent.mMsgInfo.put(MmsXmlInfo.MmsXml.SIZE, Integer.toString(pduByteArray.length));
+                        tmpContent.mMsgInfo.put("index", "" + i);
+                        tmpContent.mMsgInfo.put(MmsXmlInfo.MmsXml.DATE, record.getDate());
+                        tmpContent.mMsgInfo.put(MmsXmlInfo.MmsXml.MESSAGE_SIZE, record.getMessageSize());
+                        tmpContent.mMsgInfo.put(MmsXmlInfo.MmsXml.MESSAGE_ID, record.getMessageId());
+                        tmpContent.mMsgInfo.put(MmsXmlInfo.MmsXml.MESSAGE_TYPE, record.getMessageType());
+                        tmpContent.mMsgInfo.put(MmsXmlInfo.MmsXml.DATE_SEND, record.getDateSent());
+                        tmpContent.mMsgInfo.put(MmsXmlInfo.MmsXml.TR_ID, record.getTrId());
+                        tmpContent.mMsgInfo.put(MmsXmlInfo.MmsXml.SUBJECT, record.getSub());
+                        try {
+                            tmpContent.mGenericPdu = new MtkPduParser(pduByteArray, false)
+                                    .parse(true);
+                            if (persister.persistEx(tmpContent.mGenericPdu, tmpContent.mMsgUri,
+                                    true, tmpContent.mMsgInfo) != null) {
+                                emitter.onNext(++count);
+
+                                KomaLog.d(TAG, "restoreMms success count : " + count);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+
+                            KomaLog.e(TAG, "restoreMms error : " + e.getMessage());
+                        }
+                    }
+                }
+                emitter.onComplete();
+            }
+        }, BackpressureStrategy.LATEST);
+    }
+
+    @Override
+    public Flowable<Integer> restoreSms(String fileName) {
+        return null;
     }
 
     @Override

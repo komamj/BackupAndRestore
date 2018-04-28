@@ -117,6 +117,16 @@ public class BackupRestoreRepository implements IBackupRestoreDataSource, IBacku
     }
 
     @Override
+    public Flowable<Integer> restoreMms(String folderName) {
+        return mRestoreDataSource.restoreMms(folderName);
+    }
+
+    @Override
+    public Flowable<Integer> restoreSms(String fileName) {
+        return mRestoreDataSource.restoreSms(fileName);
+    }
+
+    @Override
     public Flowable<Integer> restoreCalendarEvents(String fileName) {
         return mRestoreDataSource.restoreCalendarEvents(fileName);
     }
