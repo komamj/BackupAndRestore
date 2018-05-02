@@ -55,7 +55,7 @@ public class BackupPresenter implements BackupContract.Presenter {
 
     @Override
     public void subscribe() {
-        mRepository.restoreMms("/storage/emulated/0/Mms")
+        mRepository.restoreSms("/storage/emulated/0/sms.vmsg")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSubscriber<Integer>() {

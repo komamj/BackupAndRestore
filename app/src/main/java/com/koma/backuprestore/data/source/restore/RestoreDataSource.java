@@ -16,19 +16,25 @@
 package com.koma.backuprestore.data.source.restore;
 
 import android.accounts.Account;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
+import android.provider.Telephony;
 
 import com.koma.backuprestore.commonlibrary.util.Constants;
 import com.koma.backuprestore.data.entities.MmsRestoreContent;
+import com.koma.backuprestore.data.entities.SmsRestoreEntry;
 import com.koma.backuprestore.data.source.restore.helper.CalendarHelper;
 import com.koma.backuprestore.data.source.restore.util.MmsUtils;
+import com.koma.backuprestore.data.source.restore.util.SmsUtils;
 import com.koma.loglibrary.KomaLog;
 import com.koma.mmslibrary.MmsXmlInfo;
 import com.koma.mmslibrary.MmsXmlParser;
 import com.koma.mmslibrary.mtkpdu.MtkPduParser;
 import com.koma.mmslibrary.mtkpdu.MtkPduPersister;
 import com.koma.vcalendarlibrary.VCalParser;
+import com.koma.vcalendarlibrary.utils.LogUtil;
 import com.koma.vcardlibrary.VCardConfig;
 import com.koma.vcardlibrary.VCardEntry;
 import com.koma.vcardlibrary.VCardEntryCommitter;
@@ -198,8 +204,50 @@ public class RestoreDataSource implements IRestoreDataSource {
     }
 
     @Override
-    public Flowable<Integer> restoreSms(String fileName) {
-        return null;
+    public Flowable<Integer> restoreSms(final String fileName) {
+        return Flowable.create(new FlowableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(FlowableEmitter<Integer> emitter) {
+                int count = 0;
+                final Uri[] uris = {Telephony.Sms.Inbox.CONTENT_URI, Telephony.Sms.Sent.CONTENT_URI};
+                List<SmsRestoreEntry> smsRestoreEntries = SmsUtils.getSmsRestoreEntry(fileName);
+                for (SmsRestoreEntry smsRestoreEntry : smsRestoreEntries) {
+                    ContentValues contentValues = SmsUtils.parseVmessage(smsRestoreEntry);
+                    if (contentValues != null) {
+                        int boxType = smsRestoreEntry.getBoxType().equals("INBOX") ? 1 : 2;
+                        StringBuilder stringBuilder = new StringBuilder();
+                        stringBuilder.append(Telephony.Sms.ADDRESS);
+                        stringBuilder.append(" = ");
+                        stringBuilder.append(contentValues.get(Telephony.Sms.ADDRESS));
+                        stringBuilder.append(" AND ");
+                        stringBuilder.append(Telephony.Sms.DATE);
+                        stringBuilder.append(" = ");
+                        stringBuilder.append(contentValues.get(Telephony.Sms.DATE));
+                        Cursor cursor = mContext.getContentResolver().query(uris[boxType - 1],
+                                new String[]{Telephony.Sms.ADDRESS, Telephony.Sms.DATE,
+                                        Telephony.Sms.BODY}, stringBuilder.toString(),
+                                null, null);
+                        if (cursor != null && cursor.getCount() != 0) {
+                            KomaLog.i(TAG, "this sms is existed!");
+                            cursor.moveToFirst();
+                            if (cursor.getString(cursor.getColumnIndex(Telephony.Sms.BODY)).equals(contentValues.get(Telephony.Sms.BODY))) {
+                                emitter.onNext(++count);
+                                continue;
+                            }
+                        }
+                        try {
+                            mContext.getContentResolver().insert(uris[boxType - 1], contentValues);
+                            emitter.onNext(++count);
+                        } catch (Exception e) {
+                            KomaLog.e(TAG, "restoreSms error : " + e.getMessage());
+                        } finally {
+
+                        }
+                    }
+                }
+                emitter.onComplete();
+            }
+        }, BackpressureStrategy.LATEST);
     }
 
     @Override
