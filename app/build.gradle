@@ -92,13 +92,16 @@ dependencies {
         transitive = false
     }
 
+    //Gson
+    implementation "com.google.code.gson:gson:$rootProject.gson_version"
+
     //dagger2
     implementation "com.google.dagger:dagger:$rootProject.ext.dagger_version"
     annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.ext.dagger_version"
 
     //leakcanary
-    debugCompile "com.squareup.leakcanary:leakcanary-android:$rootProject.ext.leakcanary_version"
-    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.ext.leakcanary_version"
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.ext.leakcanary_version"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.ext.leakcanary_version"
 
     implementation project(':loglibrary')
     implementation project(':commonlibrary')

@@ -13,26 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.koma.backuprestore.data.source.restore;
+package com.koma.backuprestore.data.entities;
 
-import com.koma.backuprestore.data.source.IBackupRestoreDataSource;
+import com.google.gson.annotations.SerializedName;
 
-import io.reactivex.Flowable;
+import java.io.Serializable;
 
 /**
- * Created by koma on 3/20/18.
+ * CallLogEntry
+ *
+ * @author koma_mj
+ * @date 5/3/18
  */
 
-public interface IRestoreDataSource extends IBackupRestoreDataSource {
-    Flowable<Integer> getContactCount(String fileName);
-
-    Flowable<Integer> restoreContacts(String fileName);
-
-    Flowable<Integer> restoreMms(String folderName);
-
-    Flowable<Integer> restoreSms(String fileName);
-
-    Flowable<Integer> restoreCallLog(String fileName);
-
-    Flowable<Integer> restoreCalendarEvents(String fileName);
+public class CallLogEntry implements Serializable {
+    @SerializedName("number")
+    public String mNumber;
+    @SerializedName("isRead")
+    public int mIsRead;
+    @SerializedName("name")
+    public String mName;
+    @SerializedName("type")
+    public int mType;
+    @SerializedName("date")
+    public long mDate;
+    @SerializedName("duration")
+    public long mDuration;
 }

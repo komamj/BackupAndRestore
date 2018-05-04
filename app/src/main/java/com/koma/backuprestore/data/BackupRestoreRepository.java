@@ -127,6 +127,11 @@ public class BackupRestoreRepository implements IBackupRestoreDataSource, IBacku
     }
 
     @Override
+    public Flowable<Integer> restoreCallLog(String fileName) {
+        return mRestoreDataSource.restoreCallLog(fileName);
+    }
+
+    @Override
     public Flowable<Integer> restoreCalendarEvents(String fileName) {
         return mRestoreDataSource.restoreCalendarEvents(fileName);
     }

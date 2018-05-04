@@ -16,16 +16,21 @@
 package com.koma.backuprestore.data.source.restore;
 
 import android.accounts.Account;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.provider.CallLog;
 import android.provider.Telephony;
 
+import com.google.gson.Gson;
 import com.koma.backuprestore.commonlibrary.util.Constants;
+import com.koma.backuprestore.data.entities.CallLogEntry;
 import com.koma.backuprestore.data.entities.MmsRestoreContent;
 import com.koma.backuprestore.data.entities.SmsRestoreEntry;
 import com.koma.backuprestore.data.source.restore.helper.CalendarHelper;
+import com.koma.backuprestore.data.source.restore.util.CallLogUtils;
 import com.koma.backuprestore.data.source.restore.util.MmsUtils;
 import com.koma.backuprestore.data.source.restore.util.SmsUtils;
 import com.koma.loglibrary.KomaLog;
@@ -34,7 +39,6 @@ import com.koma.mmslibrary.MmsXmlParser;
 import com.koma.mmslibrary.mtkpdu.MtkPduParser;
 import com.koma.mmslibrary.mtkpdu.MtkPduPersister;
 import com.koma.vcalendarlibrary.VCalParser;
-import com.koma.vcalendarlibrary.utils.LogUtil;
 import com.koma.vcardlibrary.VCardConfig;
 import com.koma.vcardlibrary.VCardEntry;
 import com.koma.vcardlibrary.VCardEntryCommitter;
@@ -48,6 +52,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -68,9 +73,13 @@ public class RestoreDataSource implements IRestoreDataSource {
 
     private final Context mContext;
 
+    private final Gson mGson;
+
     @Inject
-    public RestoreDataSource(Context context) {
+    public RestoreDataSource(Context context, Gson gson) {
         mContext = context;
+
+        mGson = gson;
     }
 
     @Override
@@ -230,7 +239,9 @@ public class RestoreDataSource implements IRestoreDataSource {
                         if (cursor != null && cursor.getCount() != 0) {
                             KomaLog.i(TAG, "this sms is existed!");
                             cursor.moveToFirst();
-                            if (cursor.getString(cursor.getColumnIndex(Telephony.Sms.BODY)).equals(contentValues.get(Telephony.Sms.BODY))) {
+                            String body = cursor.getString(cursor.getColumnIndex(Telephony.Sms.BODY));
+                            cursor.close();
+                            if (body.equals(contentValues.get(Telephony.Sms.BODY))) {
                                 emitter.onNext(++count);
                                 continue;
                             }
@@ -243,6 +254,62 @@ public class RestoreDataSource implements IRestoreDataSource {
                         } finally {
 
                         }
+                    }
+                }
+                emitter.onComplete();
+            }
+        }, BackpressureStrategy.LATEST);
+    }
+
+    @Override
+    public Flowable<Integer> restoreCallLog(final String fileName) {
+        return Flowable.create(new FlowableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(FlowableEmitter<Integer> emitter) throws Exception {
+                final String[] projection = new String[]{
+                        CallLog.Calls.NUMBER, CallLog.Calls.DATE, CallLog.Calls.IS_READ,
+                        CallLog.Calls.DURATION, CallLog.Calls.TYPE};
+                final ContentResolver contentResolver = mContext.getContentResolver();
+                int count = 0;
+                List<CallLogEntry> callLogEntries = new ArrayList<>();
+                callLogEntries.addAll(CallLogUtils.parseCallLogEntries(mGson, fileName));
+                for (CallLogEntry callLogEntry : callLogEntries) {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    stringBuilder.append(CallLog.Calls.NUMBER);
+                    stringBuilder.append(" = ");
+                    stringBuilder.append(callLogEntry.mNumber);
+                    stringBuilder.append(" AND ");
+                    stringBuilder.append(CallLog.Calls.IS_READ);
+                    stringBuilder.append(" = ");
+                    stringBuilder.append(callLogEntry.mIsRead);
+                    stringBuilder.append(" AND ");
+                    stringBuilder.append(CallLog.Calls.DATE);
+                    stringBuilder.append(" = ");
+                    stringBuilder.append(callLogEntry.mDate);
+                    stringBuilder.append(" AND ");
+                    stringBuilder.append(CallLog.Calls.DURATION);
+                    stringBuilder.append(" = ");
+                    stringBuilder.append(callLogEntry.mDuration);
+                    stringBuilder.append(" AND ");
+                    stringBuilder.append(CallLog.Calls.TYPE);
+                    stringBuilder.append(" = ");
+                    stringBuilder.append(callLogEntry.mType);
+                    Cursor cursor = contentResolver.query(Constants.CALL_LOG_URI,
+                            projection, stringBuilder.toString(), null, null);
+                    if (cursor != null && cursor.getCount() != 0) {
+                        cursor.close();
+                        emitter.onNext(++count);
+                        continue;
+                    }
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put(CallLog.Calls.NUMBER, callLogEntry.mNumber);
+                    contentValues.put(CallLog.Calls.IS_READ, callLogEntry.mIsRead);
+                    contentValues.put(CallLog.Calls.DATE, callLogEntry.mDate);
+                    contentValues.put(CallLog.Calls.DURATION, callLogEntry.mDuration);
+                    contentValues.put(CallLog.Calls.TYPE, callLogEntry.mType);
+                    contentValues.put(CallLog.Calls.CACHED_NAME, callLogEntry.mName);
+                    if (contentResolver.insert(Constants.CALL_LOG_URI, contentValues) != null) {
+                        emitter.onNext(++count);
                     }
                 }
                 emitter.onComplete();

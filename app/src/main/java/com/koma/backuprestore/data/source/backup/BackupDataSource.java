@@ -21,6 +21,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.provider.MediaStore;
 
+import com.google.gson.Gson;
 import com.koma.backuprestore.data.entities.App;
 import com.koma.backuprestore.data.entities.Image;
 import com.koma.backuprestore.data.entities.Video;
@@ -58,9 +59,13 @@ public class BackupDataSource implements IBackupDataSource {
 
     private final Context mContext;
 
+    private final Gson mGson;
+
     @Inject
-    public BackupDataSource(Context context) {
+    public BackupDataSource(Context context, Gson gson) {
         mContext = context;
+
+        mGson = gson;
     }
 
     @Override

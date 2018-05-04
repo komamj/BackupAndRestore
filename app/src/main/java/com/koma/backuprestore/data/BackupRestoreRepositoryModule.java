@@ -19,8 +19,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.koma.backuprestore.data.source.backup.IBackupDataSource;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.koma.backuprestore.data.source.backup.BackupDataSource;
+import com.koma.backuprestore.data.source.backup.IBackupDataSource;
 import com.koma.backuprestore.data.source.restore.IRestoreDataSource;
 import com.koma.backuprestore.data.source.restore.RestoreDataSource;
 
@@ -43,13 +45,20 @@ public class BackupRestoreRepositoryModule {
 
     @Singleton
     @Provides
-    IBackupDataSource provideBackupDataSource(Context context) {
-        return new BackupDataSource(context);
+    Gson provideGson() {
+        return new GsonBuilder()
+                .create();
     }
 
     @Singleton
     @Provides
-    IRestoreDataSource provideRestoreDataSource(Context context) {
-        return new RestoreDataSource(context);
+    IBackupDataSource provideBackupDataSource(Context context, Gson gson) {
+        return new BackupDataSource(context, gson);
+    }
+
+    @Singleton
+    @Provides
+    IRestoreDataSource provideRestoreDataSource(Context context, Gson gson) {
+        return new RestoreDataSource(context, gson);
     }
 }

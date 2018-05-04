@@ -52,6 +52,7 @@ ext {
     rxandroid_version = '2.0.1'
     butterknife_version = '8.8.1'
     room_version = '1.0.0'
+    gson_version = '2.8.0'
     eventbus_version = '3.1.1'
     leakcanary_version = '1.5.4'
 
